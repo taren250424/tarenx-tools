@@ -1,24 +1,21 @@
 {
-	"name": "symbol-deck",
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "tsc -b && vite build",
-		"lint": "eslint .",
-		"preview": "vite preview"
-	},
-	"dependencies": {
-		"@taren250424/aero": "^0.1.1",
-		"sass": "^1.87.0"
-	},
-	"devDependencies": {
-		"@eslint/js": "^9.22.0",
-		"eslint": "^9.22.0",
-		"globals": "^16.0.0",
-		"typescript": "~5.7.2",
-		"typescript-eslint": "^8.26.1",
-		"vite": "^6.3.1",
-		"vitest": "^3.1.2"
-	}
+  "name": "tarenx-tools-monorepo",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm -r run dev",
+    "build": "pnpm -r run build",
+    "lint": "pnpm -r run lint",
+    "dev:index-app": "pnpm --filter index-app run dev",
+    "build:index-app": "pnpm --filter index-app run build",
+    "dev:symbol-deck": "pnpm --filter symbol-deck run dev",
+    "build:symbol-deck": "pnpm --filter symbol-deck run build",
+    "deploy": "pnpm run build && node scripts/deploy.mjs"
+  },
+  "packageManager": "pnpm@10.26.2+sha512.0e308ff2005fc7410366f154f625f6631ab2b16b1d2e70238444dd6ae9d630a8482d92a451144debc492416896ed16f7b114a86ec68b8404b2443869e68ffda6",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
 }
