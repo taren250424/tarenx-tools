@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="ogBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="60%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#312E81" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22D3EE" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#ogBg)" />
+
+  <circle cx="1000" cy="315" r="300" fill="url(#accentGrad)" opacity="0.08" filter="blur(40px)" />
+
+  <g transform="translate(100, 140)">
+    <rect width="140" height="36" rx="18" fill="#334155" />
+    <text x="70" y="24" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#22D3EE" text-anchor="middle">WORKSPACE HUB</text>
+
+    <text x="0" y="110" font-family="system-ui, sans-serif" font-size="72" font-weight="900" fill="#FFFFFF">Tarenx Tools</text>
+    <text x="0" y="185" font-family="system-ui, sans-serif" font-size="32" font-weight="600" fill="url(#accentGrad)">All-in-One Developer Utilities</text>
+    
+    <line x1="0" y1="240" x2="400" y2="240" stroke="#334155" stroke-width="2" />
+
+    <text x="0" y="290" font-family="system-ui, sans-serif" font-size="20" font-weight="400" fill="#94A3B8">✔ Instant navigation to workspace tools including Symbol Picker</text>
+    <text x="0" y="330" font-family="system-ui, sans-serif" font-size="20" font-weight="400" fill="#94A3B8">✔ Ultra-fast lightweight system based on pnpm monorepo</text>
+  </g>
+
+  <g stroke="url(#accentGrad)" stroke-width="1.5" fill="none" opacity="0.4" transform="translate(850, 230)">
+    <polygon points="100,0 200,60 200,180 100,240 0,180 0,60" />
+    <polygon points="100,30 170,75 170,165 100,210 30,165 30,75" stroke-dasharray="5,5" />
+    <circle cx="100" cy="120" r="20" fill="url(#accentGrad)" />
+  </g>
+</svg>

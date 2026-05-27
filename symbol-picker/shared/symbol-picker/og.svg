@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="100%" height="100%">
+  <rect width="1200" height="630" fill="#1E202B"/>
+  
+  <g stroke="#2A2D3D" stroke-width="2" stroke-dasharray="10 10">
+    <path d="M600 0v630M0 315h1200"/>
+    <circle cx="600" cy="315" r="200" fill="none"/>
+  </g>
+  
+  <g transform="translate(360, 240)">
+    <g transform="translate(0, 0)">
+      <rect width="130" height="130" rx="32" fill="#2A2D3D"/>
+      <path d="M65 25l13 30 32 3-25 22 7 32-27-17-27 17 7-32-25-22 32-3z" fill="#00E5FF"/>
+      <path d="M85 85l35 10-12 12 18 18-12 12-18-18-12 12z" fill="#FFFFFF"/>
+    </g>
+    
+    <text x="170" y="85" font-family="sans-serif" font-size="64" font-weight="900" fill="#00E5FF">Symbol</text>
+    <text x="430" y="85" font-family="sans-serif" font-size="64" font-weight="900" fill="#FFFFFF">Picker</text>
+  </g>
+</svg>
