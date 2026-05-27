@@ -7,12 +7,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
-const indexAppDist = path.join(rootDir, 'packages', 'index-app', 'dist');
+const hubDist = path.join(rootDir, 'packages', 'hub', 'dist');
 const symbolPickerDist = path.join(rootDir, 'packages', 'symbol-picker', 'dist');
 
-await fs.cp(symbolPickerDist, path.join(indexAppDist, 'symbol-picker'), {
+await fs.cp(symbolPickerDist, path.join(hubDist, 'symbol-picker'), {
   recursive: true,
   force: true,
 });
 
-execSync('pnpm --filter index-app preview', { cwd: rootDir, stdio: 'inherit' });
+execSync('pnpm --filter hub preview', { cwd: rootDir, stdio: 'inherit' });
