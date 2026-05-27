@@ -8,8 +8,8 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
 const indexAppDist = path.join(rootDir, 'packages', 'index-app', 'dist');
-const symbolDeckDist = path.join(rootDir, 'packages', 'symbol-deck', 'dist');
-const targetSymbolDeckDir = path.join(indexAppDist, 'symbol-deck');
+const symbolPickerDist = path.join(rootDir, 'packages', 'symbol-picker', 'dist');
+const targetSymbolPickerDir = path.join(indexAppDist, 'symbol-picker');
 const cnamePath = path.join(indexAppDist, 'CNAME');
 
 async function deploy() {
@@ -18,15 +18,15 @@ async function deploy() {
   try {
     // 1. Check if both dist folders exist
     await fs.access(indexAppDist);
-    await fs.access(symbolDeckDist);
+    await fs.access(symbolPickerDist);
   } catch (err) {
     console.error('❌ Error: Dist folders not found. Did you run build?');
     process.exit(1);
   }
 
-  // 2. Copy symbol-deck dist into index-app dist
-  console.log('📂 Copying symbol-deck to index-app/dist/symbol-deck...');
-  await fs.cp(symbolDeckDist, targetSymbolDeckDir, { recursive: true, force: true });
+  // 2. Copy symbol-picker dist into index-app dist
+  console.log('📂 Copying symbol-picker to index-app/dist/symbol-picker...');
+  await fs.cp(symbolPickerDist, targetSymbolPickerDir, { recursive: true, force: true });
 
   // 3. Create CNAME and .nojekyll files
   console.log('🌐 Creating CNAME and .nojekyll files...');

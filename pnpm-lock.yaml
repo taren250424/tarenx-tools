@@ -21,7 +21,7 @@ importers:
         specifier: ^8.0.12
         version: 8.0.14(sass@1.100.0)
 
-  packages/symbol-deck:
+  packages/symbol-picker:
     dependencies:
       '@taren250424/aero':
         specifier: ^0.1.1
