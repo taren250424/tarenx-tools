@@ -1,34 +1,59 @@
+$hover-color: rgb(226, 225, 224);
+
 main {
-	display: flex;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 1500px) 1fr;
 }
 
-#nav-container {
-	width: 200px;
-	background-color: green;
+main > section {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+
+  overflow: hidden;
+}
+
+main > section > * {
+  overflow: auto;
+  min-width: 0;
 }
 
 #nav-container .nav-item {
+  font-size: 1.2rem;
+  padding: 0 10px;
+
+  cursor: pointer;
 
 	&:hover {
-		cursor: pointer;
-		background-color: bisque;
+		background-color: $hover-color;
 	}
 }
 
 #unicode-container {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(auto-fit, 72px);
+
+  justify-content: center;
+  align-content: start;
+
+  padding: 0 40px;
   gap: 8px;
 
   > .unicode-item {
     aspect-ratio: 1 / 1;
-    font-size: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.5rem;
+
     border: 1px solid #ddd;
     background: white;
-    cursor: pointer;
 
+    cursor: pointer;
+    
     &:hover {
-      background: #f5f5f5;
+      background: $hover-color;
     }
   }
 }
