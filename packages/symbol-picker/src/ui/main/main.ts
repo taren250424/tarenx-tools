@@ -56,13 +56,23 @@ function updateURL(value: string) {
 	window.history.pushState({}, "", url.toString());
 }
 
-function renderUnicode(unicodeContainer: HTMLElement, key: keyof typeof ranges) {
-	const unicodes = getUnicodes(...ranges[key]);
+// function renderUnicode(unicodeContainer: HTMLElement, key: keyof typeof ranges) {
+// 	const unicodes = getUnicodes(...ranges[key]);
 
-	unicodeContainer.innerHTML = unicodes
-		.map(
-			(item) =>
-				`<button class="unicode-item" title="${item.code}" data-char="${item.char}">${item.char}</button>`
-		)
-		.join("");
+// 	unicodeContainer.innerHTML = unicodes
+// 		.map(
+// 			(item) =>
+// 				`<button class="unicode-item" title="${item.code}" data-char="${item.char}">${item.char}</button>`
+// 		)
+// 		.join("");
+// }
+function renderUnicode(unicodeContainer: HTMLElement, key: keyof typeof ranges) {
+  const unicodes = ranges[key].flatMap(([start, end]) => getUnicodes(start, end));
+
+  unicodeContainer.innerHTML = unicodes
+    .map(
+      (item) =>
+        `<button class="unicode-item" title="${item.code}" data-char="${item.char}">${item.char}</button>`
+    )
+    .join("");
 }
