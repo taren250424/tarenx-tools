@@ -3,12 +3,12 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 import path from 'path'
 
 export default defineConfig({
-  base: '/symbol-picker/',
+  base: '/',
   plugins: [
     viteStaticCopy({
       targets: [
         {
-          src: normalizePath(path.resolve(__dirname, '../shared/symbol-picker')) + '/**/*',
+          src: normalizePath(path.resolve(__dirname, '../shared/')) + '/**/*',
           dest: 'shared',
           rename: { stripBase: 1 },
         }
