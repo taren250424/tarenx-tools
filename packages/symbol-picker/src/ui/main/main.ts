@@ -11,6 +11,9 @@ export function init() {
 		const item = e.target as HTMLElement;
 		if (!item || !item.classList.contains("nav-item")) return;
 
+		navContainer.querySelector(".active")?.classList.remove("active");
+    item.classList.add("active");
+
 		const key = item.dataset.key!
 		updateURL(key);
 		renderUnicode(unicodeContainer, key);
@@ -29,14 +32,20 @@ export function init() {
 
 	window.addEventListener("popstate", () => {
 		const newSelected = getSelectedFromURL();
+		
+		navContainer.querySelector(".active")?.classList.remove("active");
+    navContainer.querySelector(`[data-key="${newSelected}"]`)?.classList.add("active");
+
 		renderUnicode(unicodeContainer, newSelected);
 	});
 
+	const initialKey = getSelectedFromURL();
 	Object.keys(ranges).map((key) => {
 		const div = document.createElement("div")
 		div.dataset.key = key
 		div.textContent = key
 		div.classList.add("nav-item")
+		if (key === initialKey) div.classList.add("active");
 		navContainer.appendChild(div)
 	});
 

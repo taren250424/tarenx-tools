@@ -26,6 +26,25 @@ main > section > * {
 	&:hover {
 		background-color: $hover-color;
 	}
+
+  &.active {
+    font-weight: 600;
+    border-left: 3px solid #333;
+    background-color: $hover-color;
+  }
+}
+
+#nav-container {
+  border-right: 1px solid #e0e0e0;
+  
+  .nav-item {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f0f0f0;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 #unicode-container {
