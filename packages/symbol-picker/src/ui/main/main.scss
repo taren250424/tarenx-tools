@@ -2,7 +2,18 @@ $hover-color: rgb(226, 225, 224);
 
 main {
   display: grid;
-  grid-template-columns: 1fr minmax(0, 1500px) 1fr;
+  grid-template-columns: 160px minmax(0, 1500px) 160px;
+  justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  aside.ad {
+    display: none;
+  }
+
+  main {
+    grid-template-columns: minmax(0, 1500px);
+  }
 }
 
 main > section {
@@ -36,7 +47,7 @@ main > section > * {
 
 #nav-container {
   border-right: 1px solid #e0e0e0;
-  
+
   .nav-item {
     padding: 8px 10px;
     border-bottom: 1px solid #f0f0f0;
@@ -70,7 +81,7 @@ main > section > * {
     background: white;
 
     cursor: pointer;
-    
+
     &:hover {
       background: $hover-color;
     }
