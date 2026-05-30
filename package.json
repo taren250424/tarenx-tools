@@ -10,8 +10,8 @@
     "lint": "pnpm -r run lint",
     "dev:hub": "pnpm --filter hub run dev",
     "build:hub": "pnpm --filter hub run build",
-    "dev:symbol-picker": "pnpm --filter symbol-picker run dev",
-    "build:symbol-picker": "pnpm --filter symbol-picker run build",
+    "dev:symbolpicker": "pnpm --filter symbolpicker run dev",
+    "build:symbolpicker": "pnpm --filter symbolpicker run build",
     "preview": "pnpm run build && node scripts/preview.mjs",
     "deploy": "pnpm run build && node scripts/deploy.mjs"
   },

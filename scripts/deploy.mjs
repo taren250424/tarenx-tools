@@ -8,8 +8,8 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
 const hubDist = path.join(rootDir, 'packages', 'hub', 'dist');
-const symbolPickerDist = path.join(rootDir, 'packages', 'symbol-picker', 'dist');
-const targetSymbolPickerDir = path.join(hubDist, 'symbol-picker');
+const symbolPickerDist = path.join(rootDir, 'packages', 'symbolpicker', 'dist');
+const targetSymbolPickerDir = path.join(hubDist, 'symbolpicker');
 const cnamePath = path.join(hubDist, 'CNAME');
 
 async function deploy() {
@@ -24,8 +24,8 @@ async function deploy() {
     process.exit(1);
   }
 
-  // 2. Copy symbol-picker dist into hub dist
-  console.log('📂 Copying symbol-picker to hub/dist/symbol-picker...');
+  // 2. Copy symbolpicker dist into hub dist
+  console.log('📂 Copying symbolpicker to hub/dist/symbolpicker...');
   await fs.cp(symbolPickerDist, targetSymbolPickerDir, { recursive: true, force: true });
 
   // 3. Create CNAME and .nojekyll files
@@ -36,9 +36,9 @@ async function deploy() {
   // 4. Deploy using gh-pages
   console.log('📤 Pushing to gh-pages branch...');
   try {
-    execSync('npx gh-pages -d packages/hub/dist', { 
-      cwd: rootDir, 
-      stdio: 'inherit' 
+    execSync('npx gh-pages -d packages/hub/dist', {
+      cwd: rootDir,
+      stdio: 'inherit'
     });
     console.log('✅ Deployment successful!');
   } catch (error) {

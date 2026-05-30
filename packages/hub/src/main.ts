@@ -3,8 +3,8 @@ import "./style.css";
 const tools = [
 	{
 		name: "Symbol Picker",
-		icon: "shared/symbol-picker/logo.svg",
-		href: "/symbol-picker/",
+		icon: "shared/symbolpicker/logo.svg",
+		href: "/symbolpicker/",
 	},
 ];
 
