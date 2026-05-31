@@ -1,5 +1,5 @@
 import "./main.scss";
-import { ranges } from "../../unicode/constants";
+import { unicodeRanges } from "../../unicode/constants";
 import { getUnicodes } from "../../unicode/utils";
 import { AeroToast } from "@taren250424/aero";
 
@@ -32,7 +32,7 @@ export function init() {
 
 	window.addEventListener("popstate", () => {
 		const newSelected = getSelectedFromURL();
-		
+
 		navContainer.querySelector(".active")?.classList.remove("active");
     navContainer.querySelector(`[data-key="${newSelected}"]`)?.classList.add("active");
 
@@ -40,10 +40,10 @@ export function init() {
 	});
 
 	const initialKey = getSelectedFromURL();
-	Object.keys(ranges).map((key) => {
+	Object.entries(unicodeRanges).map(([key, value]) => {
 		const div = document.createElement("div")
 		div.dataset.key = key
-		div.textContent = key
+		div.textContent = value.label
 		div.classList.add("nav-item")
 		if (key === initialKey) div.classList.add("active");
 		navContainer.appendChild(div)
@@ -52,10 +52,10 @@ export function init() {
 	renderUnicode(unicodeContainer, getSelectedFromURL());
 }
 
-function getSelectedFromURL(): keyof typeof ranges {
+function getSelectedFromURL(): keyof typeof unicodeRanges {
 	const params = new URLSearchParams(window.location.search);
 	const value = params.get("unicode_type");
-	if (value && value in ranges) return value as keyof typeof ranges;
+	if (value && value in unicodeRanges) return value as keyof typeof unicodeRanges;
 	return "arrows";
 }
 
@@ -65,18 +65,8 @@ function updateURL(value: string) {
 	window.history.pushState({}, "", url.toString());
 }
 
-// function renderUnicode(unicodeContainer: HTMLElement, key: keyof typeof ranges) {
-// 	const unicodes = getUnicodes(...ranges[key]);
-
-// 	unicodeContainer.innerHTML = unicodes
-// 		.map(
-// 			(item) =>
-// 				`<button class="unicode-item" title="${item.code}" data-char="${item.char}">${item.char}</button>`
-// 		)
-// 		.join("");
-// }
-function renderUnicode(unicodeContainer: HTMLElement, key: keyof typeof ranges) {
-  const unicodes = ranges[key].flatMap(([start, end]) => getUnicodes(start, end));
+function renderUnicode(unicodeContainer: HTMLElement, key: keyof typeof unicodeRanges) {
+  const unicodes = unicodeRanges[key].range.flatMap(([start, end]) => getUnicodes(start, end));
 
   unicodeContainer.innerHTML = unicodes
     .map(
