@@ -40,7 +40,9 @@ export function init() {
 	});
 
 	const initialKey = getSelectedFromURL();
-	Object.entries(unicodeRanges).map(([key, value]) => {
+	Object.entries(unicodeRanges)
+		.sort(([, a], [, b]) => a.label.localeCompare(b.label))
+		.forEach(([key, value]) => {
 		const div = document.createElement("div")
 		div.dataset.key = key
 		div.textContent = value.label
