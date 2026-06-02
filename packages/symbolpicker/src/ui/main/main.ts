@@ -1,6 +1,6 @@
 import "./main.scss";
 import { unicodeRanges } from "../../unicode/constants";
-import { getUnicodes } from "../../unicode/utils";
+import generatedData from "../../unicode/generated-data.json";
 import { AeroToast } from "@taren250424/aero";
 
 export function init() {
@@ -68,12 +68,5 @@ function updateURL(value: string) {
 }
 
 function renderUnicode(unicodeContainer: HTMLElement, key: keyof typeof unicodeRanges) {
-  const unicodes = unicodeRanges[key].range.flatMap(([start, end]) => getUnicodes(start, end));
-
-  unicodeContainer.innerHTML = unicodes
-    .map(
-      (item) =>
-        `<button class="unicode-item" title="${item.code}" data-char="${item.char}">${item.char}</button>`
-    )
-    .join("");
+  unicodeContainer.innerHTML = (generatedData as Record<string, string>)[key] || "";
 }
