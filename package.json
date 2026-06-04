@@ -6,14 +6,15 @@
   },
   "scripts": {
     "dev": "pnpm -r run dev",
-    "build": "pnpm -r run build",
+    "build": "pnpm -r run build && pnpm run sitemap",
     "lint": "pnpm -r run lint",
     "dev:hub": "pnpm --filter hub run dev",
     "build:hub": "pnpm --filter hub run build",
     "dev:symbolpicker": "pnpm --filter symbolpicker run dev",
     "build:symbolpicker": "pnpm --filter symbolpicker run build",
     "preview": "pnpm run build && node scripts/preview.mjs",
-    "deploy": "pnpm run build && node scripts/deploy.mjs"
+    "deploy": "pnpm run build && node scripts/deploy.mjs",
+    "sitemap": "node scripts/sitemap.mjs"
   },
   "packageManager": "pnpm@10.26.2+sha512.0e308ff2005fc7410366f154f625f6631ab2b16b1d2e70238444dd6ae9d630a8482d92a451144debc492416896ed16f7b114a86ec68b8404b2443869e68ffda6",
   "devDependencies": {
