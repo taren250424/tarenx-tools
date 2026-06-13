@@ -133,7 +133,7 @@
 		<script type="module" src="/src/main.ts"><\/script>\r
 	</body>\r
 </html>\r
-`})).map(([e,t])=>{let n=e.split(`/`)[2],r=t.match(/<title>(.*?)<\/title>/);return{name:r?r[1]:n,icon:`shared/${n}/logo.svg`,href:`/${n}/`}}).filter(e=>{let t=e.href.replace(/\//g,``);return t!==`hub`&&t!==`shared`});function t(){let t=document.querySelector(`main`);t.innerHTML=e.map(e=>`
+`})).map(([e,t])=>{let n=e.split(`/`),r=n[n.length-2],i=r===`..`?`hub`:r,a=t.match(/<title>(.*?)<\/title>/);return{name:a?a[1]:i,icon:`shared/${i}/logo.svg`,href:`/${i}/`}}).filter(e=>{let t=e.href.replace(/\//g,``);return t!==`hub`&&t!==`shared`});function t(){let t=document.querySelector(`main`);t.innerHTML=e.map(e=>`
         <a href="${e.href}">
           <img src="${e.icon}" alt="${e.name}" />
           <span>${e.name}</span>
