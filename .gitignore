@@ -27,4 +27,5 @@ dist-ssr
 # symbolpicker
 generated-data.json
 
+packages/shared/size.txt
 todo.txt

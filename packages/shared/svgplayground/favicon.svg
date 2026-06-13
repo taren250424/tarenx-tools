@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f1117"/>
+      <stop offset="100%" stop-color="#161b27"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3effc8"/>
+      <stop offset="100%" stop-color="#38bfff"/>
+    </linearGradient>
+    <clipPath id="roundedClip">
+      <rect width="512" height="512" rx="96"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#roundedClip)">
+    <rect width="512" height="512" fill="url(#bg)"/>
+
+    <!-- subtle grid dots -->
+    <g opacity="0.07" fill="#a0aec0">
+      <circle cx="64"  cy="64"  r="2"/><circle cx="128" cy="64"  r="2"/><circle cx="192" cy="64"  r="2"/><circle cx="256" cy="64"  r="2"/><circle cx="320" cy="64"  r="2"/><circle cx="384" cy="64"  r="2"/><circle cx="448" cy="64"  r="2"/>
+      <circle cx="64"  cy="128" r="2"/><circle cx="128" cy="128" r="2"/><circle cx="192" cy="128" r="2"/><circle cx="256" cy="128" r="2"/><circle cx="320" cy="128" r="2"/><circle cx="384" cy="128" r="2"/><circle cx="448" cy="128" r="2"/>
+      <circle cx="64"  cy="192" r="2"/><circle cx="128" cy="192" r="2"/><circle cx="192" cy="192" r="2"/><circle cx="256" cy="192" r="2"/><circle cx="320" cy="192" r="2"/><circle cx="384" cy="192" r="2"/><circle cx="448" cy="192" r="2"/>
+      <circle cx="64"  cy="256" r="2"/><circle cx="128" cy="256" r="2"/><circle cx="192" cy="256" r="2"/><circle cx="256" cy="256" r="2"/><circle cx="320" cy="256" r="2"/><circle cx="384" cy="256" r="2"/><circle cx="448" cy="256" r="2"/>
+      <circle cx="64"  cy="320" r="2"/><circle cx="128" cy="320" r="2"/><circle cx="192" cy="320" r="2"/><circle cx="256" cy="320" r="2"/><circle cx="320" cy="320" r="2"/><circle cx="384" cy="320" r="2"/><circle cx="448" cy="320" r="2"/>
+      <circle cx="64"  cy="384" r="2"/><circle cx="128" cy="384" r="2"/><circle cx="192" cy="384" r="2"/><circle cx="256" cy="384" r="2"/><circle cx="320" cy="384" r="2"/><circle cx="384" cy="384" r="2"/><circle cx="448" cy="384" r="2"/>
+      <circle cx="64"  cy="448" r="2"/><circle cx="128" cy="448" r="2"/><circle cx="192" cy="448" r="2"/><circle cx="256" cy="448" r="2"/><circle cx="320" cy="448" r="2"/><circle cx="384" cy="448" r="2"/><circle cx="448" cy="448" r="2"/>
+    </g>
+
+    <!-- center glow -->
+    <ellipse cx="256" cy="256" rx="180" ry="160" fill="#3effc8" opacity="0.04"/>
+
+    <!-- < bracket left -->
+    <path d="M148 180 L84 256 L148 332" fill="none" stroke="url(#accentGrad)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- > bracket right -->
+    <path d="M364 180 L428 256 L364 332" fill="none" stroke="url(#accentGrad)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- / slash -->
+    <line x1="292" y1="176" x2="220" y2="336" stroke="#3effc8" stroke-width="22" stroke-linecap="round" opacity="0.9"/>
+
+    <!-- cursor blink bar -->
+    <rect x="312" y="232" width="10" height="48" rx="3" fill="#38bfff" opacity="0.7"/>
+  </g>
+</svg>

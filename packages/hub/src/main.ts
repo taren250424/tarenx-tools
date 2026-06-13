@@ -6,6 +6,11 @@ const tools = [
 		icon: "shared/symbolpicker/logo.svg",
 		href: "/symbolpicker/",
 	},
+	{
+		name: "SVG Playground",
+		icon: "shared/svgplayground/logo.svg",
+		href: "/svgplayground/",
+	},
 ];
 
 function main() {

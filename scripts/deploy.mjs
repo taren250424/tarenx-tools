@@ -9,7 +9,9 @@ const rootDir = path.resolve(__dirname, '..');
 
 const hubDist = path.join(rootDir, 'packages', 'hub', 'dist');
 const symbolPickerDist = path.join(rootDir, 'packages', 'symbolpicker', 'dist');
+const svgPlaygroundDist = path.join(rootDir, 'packages', 'svgplayground', 'dist');
 const targetSymbolPickerDir = path.join(hubDist, 'symbolpicker');
+const targetSvgPlaygroundDir = path.join(hubDist, 'svgplayground');
 const cnamePath = path.join(hubDist, 'CNAME');
 
 async function deploy() {
@@ -19,6 +21,7 @@ async function deploy() {
     // 1. Check if both dist folders exist
     await fs.access(hubDist);
     await fs.access(symbolPickerDist);
+    await fs.access(svgPlaygroundDist);
   } catch (err) {
     console.error('❌ Error: Dist folders not found. Did you run build?');
     process.exit(1);
@@ -27,6 +30,9 @@ async function deploy() {
   // 2. Copy symbolpicker dist into hub dist
   console.log('📂 Copying symbolpicker to hub/dist/symbolpicker...');
   await fs.cp(symbolPickerDist, targetSymbolPickerDir, { recursive: true, force: true });
+
+	console.log('📂 Copying svgplayground to hub/dist/svgplayground...');
+  await fs.cp(svgPlaygroundDist, targetSvgPlaygroundDir, { recursive: true, force: true });
 
   // 3. Create CNAME and .nojekyll files
   console.log('🌐 Creating CNAME and .nojekyll files...');

@@ -9,8 +9,14 @@ const rootDir = path.resolve(__dirname, '..');
 
 const hubDist = path.join(rootDir, 'packages', 'hub', 'dist');
 const symbolPickerDist = path.join(rootDir, 'packages', 'symbolpicker', 'dist');
+const svgPlaygroundDist = path.join(rootDir, 'packages', 'svgplayground', 'dist');
 
 await fs.cp(symbolPickerDist, path.join(hubDist, 'symbolpicker'), {
+  recursive: true,
+  force: true,
+});
+
+await fs.cp(svgPlaygroundDist, path.join(hubDist, 'svgplayground'), {
   recursive: true,
   force: true,
 });
