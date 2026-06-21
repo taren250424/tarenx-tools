@@ -54,6 +54,119 @@
 		<script type="module" src="/src/main.ts"><\/script>\r
 	</body>\r
 </html>\r
+`,"../../jsonformatter/index.html":`<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="A beautiful and dynamic JSON formatter and converter." />
+
+		<link rel="canonical" href="https://tools.tarenx.com/jsonformatter/" />
+		<link rel="icon" type="image/svg+xml" href="shared/jsonformatter/favicon.svg" />
+
+		<meta property="og:title" content="JSON Formatter" />
+		<meta property="og:description" content="A beautiful and dynamic JSON formatter and converter." />
+		<meta property="og:image" content="shared/jsonformatter/og.svg" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>JSON Formatter</title>
+	</head>
+
+	<body>
+		<header>
+			<div class="header-brand">
+				<img class="header-logo" src="shared/jsonformatter/logo.svg" alt="JSON Formatter Logo" />
+				<span class="header-title">JSON Formatter</span>
+			</div>
+			<div class="header-actions">
+				<button id="format-btn" class="btn btn-primary">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+						<line x1="9" y1="9" x2="15" y2="9"></line>
+						<line x1="9" y1="13" x2="15" y2="13"></line>
+						<line x1="9" y1="17" x2="13" y2="17"></line>
+					</svg>
+					Format
+				</button>
+				<button id="minify-btn" class="btn btn-secondary">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<polyline points="4 7 4 4 20 4 20 7"></polyline>
+						<line x1="9" y1="20" x2="15" y2="20"></line>
+						<line x1="12" y1="4" x2="12" y2="20"></line>
+					</svg>
+					Minify
+				</button>
+				<button id="yaml-btn" class="btn btn-secondary">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+					</svg>
+					To YAML
+				</button>
+				<button id="validate-btn" class="btn btn-secondary">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+						<polyline points="22 4 12 14.01 9 11.01"></polyline>
+					</svg>
+					Validate
+				</button>
+				<button id="theme-toggle-btn" class="btn btn-secondary" title="Toggle Theme" aria-label="Toggle Theme">
+					<!-- Sun Icon (shown in dark mode) -->
+					<svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="12" cy="12" r="5"></circle>
+						<line x1="12" y1="1" x2="12" y2="3"></line>
+						<line x1="12" y1="21" x2="12" y2="23"></line>
+						<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+						<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+						<line x1="1" y1="12" x2="3" y2="12"></line>
+						<line x1="21" y1="12" x2="23" y2="12"></line>
+						<line x1="4.22" y1="19.72" x2="5.64" y2="18.3"></line>
+						<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+					</svg>
+					<!-- Moon Icon (shown in light mode) -->
+					<svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+					</svg>
+				</button>
+			</div>
+		</header>
+		<main>
+			<aside class="ad"></aside>
+			<section>
+				<div class="panel main-panel">
+					<div id="editor"></div>
+					<div id="status-bar" class="status-bar hidden">
+						<span id="status-message"></span>
+					</div>
+				</div>
+			</section>
+			<aside class="ad"></aside>
+		</main>
+
+		<!-- YAML Output Modal -->
+		<div id="yaml-modal" class="modal hidden">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>YAML Output</h2>
+					<button id="close-modal-btn" class="close-btn">&times;</button>
+				</div>
+				<div class="modal-body">
+					<pre id="yaml-output-text"></pre>
+				</div>
+				<div class="modal-footer">
+					<button id="copy-yaml-btn" class="btn btn-primary">
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+							<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+						</svg>
+						Copy YAML
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<footer></footer>
+		<script type="module" src="/src/main.ts"><\/script>
+	</body>
+</html>
 `,"../../svgplayground/index.html":`<!doctype html>\r
 <html lang="en">\r
 	<head>\r
