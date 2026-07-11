@@ -1,0 +1,10 @@
+<svg width="100%" viewBox="0 0 522 522" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Graphify logo</title>
+<desc>A flat square icon with rounded corners showing a rising line chart, representing data visualization.</desc>
+<rect x="0" y="0" width="512" height="512" rx="96" fill="#10B981"/>
+<path d="M112 396 L208 284 L288 332 L400 152" fill="none" stroke="#FFFFFF" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="112" cy="396" r="20" fill="#FFFFFF"/>
+<circle cx="208" cy="284" r="20" fill="#FFFFFF"/>
+<circle cx="288" cy="332" r="20" fill="#FFFFFF"/>
+<circle cx="400" cy="152" r="20" fill="#FFFFFF"/>
+</svg>

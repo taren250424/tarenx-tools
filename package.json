@@ -18,6 +18,8 @@
     "build:svgplayground": "pnpm --filter svgplayground run build",
 		"dev:jsonformatter": "pnpm --filter jsonformatter run dev",
     "build:jsonformatter": "pnpm --filter jsonformatter run build",
+		"dev:graphify": "pnpm --filter graphify run dev",
+    "build:graphify": "pnpm --filter graphify run build",
 
 		"preview": "pnpm run build && node scripts/preview.mjs",
     "deploy": "pnpm run build && node scripts/deploy.mjs",
