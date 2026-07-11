@@ -13,6 +13,11 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Graphify</title>
+
+		<!-- Apply saved dark theme before first paint to avoid a flash. Default: light. -->
+		<script>
+			if (localStorage.getItem('graphify-theme') === 'dark') document.documentElement.classList.add('dark');
+		<\/script>
 	</head>
 
 	<body>
@@ -73,7 +78,6 @@
 					</svg>
 					<h1>Drop a CSV file here</h1>
 					<p>…or click to browse, or paste cells straight from Excel / Google Sheets (Ctrl+V).</p>
-					<p class="hint">Korean statistics exports (KOSIS, CP949 encoding, quarterly “2011.1/4” labels…) are handled automatically.</p>
 				</div>
 			</section>
 
