@@ -27,37 +27,131 @@
   </head>
 
   <body>
-    <header>
-      <div class="header-spacer"></div>
-      <h1>SVG Playground</h1>
-      <div class="header-actions">
-        <button id="download-btn" class="primary-btn">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          Download SVG
-        </button>
-      </div>
-    </header>
-    <main>
-      <aside class="ad"></aside>
+    <div class="app-viewport">
+      <header>
+        <div class="header-spacer"></div>
+        <h1>SVG Playground</h1>
+        <div class="header-actions">
+          <button id="download-btn" class="primary-btn">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download SVG
+          </button>
+        </div>
+      </header>
+      <main>
+        <aside class="ad"></aside>
+        <section>
+          <div id="editor" class="panel"></div>
+          <div id="canvas" class="panel"></div>
+        </section>
+        <aside class="ad"></aside>
+      </main>
+    </div>
+
+    <article class="page-content">
       <section>
-        <div id="editor" class="panel"></div>
-        <div id="canvas" class="panel"></div>
+        <h2>About this tool</h2>
+        <p>
+          SVG Playground is a free online SVG editor with a live preview. Type
+          or paste SVG markup on the left and see it rendered instantly on the
+          right — then download the result as a clean <code>.svg</code> file.
+          Everything runs in your browser, so your artwork never leaves your
+          machine.
+        </p>
       </section>
-      <aside class="ad"></aside>
-    </main>
+
+      <section>
+        <h2>How to use</h2>
+        <ul>
+          <li>Write or paste SVG markup into the editor panel.</li>
+          <li>The canvas re-renders on every keystroke — no refresh needed.</li>
+          <li>
+            Click <strong>Download SVG</strong> to save the current markup as a
+            file you can drop into any project.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>What is SVG?</h2>
+        <p>
+          SVG (Scalable Vector Graphics) is an XML-based image format that
+          describes shapes with code instead of pixels. Because it's vector
+          based, an SVG stays perfectly sharp at any size — the same file works
+          as a 16px favicon and a billboard. It's the standard format for icons,
+          logos, charts, and illustrations on the web, and since it's plain text
+          it compresses extremely well and can be styled or animated with CSS.
+        </p>
+      </section>
+
+      <section>
+        <h2>FAQ</h2>
+        <p>
+          <strong>SVG vs PNG — when should I use which?</strong> Use SVG for
+          anything drawn with shapes: icons, logos, diagrams, UI illustrations.
+          Use PNG (or WebP/AVIF) for photographs and complex raster imagery. SVG
+          scales losslessly and is usually far smaller for simple graphics.
+        </p>
+        <p>
+          <strong>Is my SVG uploaded anywhere?</strong> No. The editor and
+          preview run entirely in your browser. The downloaded file is generated
+          locally from your markup.
+        </p>
+        <p>
+          <strong>Why doesn't my SVG render?</strong> The most common causes are
+          a missing <code>xmlns="http://www.w3.org/2000/svg"</code>
+          attribute on the root element, an unclosed tag, or a missing
+          <code>viewBox</code> that leaves the drawing outside the visible area.
+        </p>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "SVG vs PNG - when should I use which?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use SVG for anything drawn with shapes: icons, logos, diagrams, UI illustrations. Use PNG for photographs and complex raster imagery. SVG scales losslessly and is usually far smaller for simple graphics."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my SVG uploaded anywhere?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The editor and preview run entirely in your browser. The downloaded file is generated locally from your markup."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why doesn't my SVG render?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The most common causes are a missing xmlns attribute on the root element, an unclosed tag, or a missing viewBox that leaves the drawing outside the visible area."
+            }
+          }
+        ]
+      }
+    </script>
+
     <footer></footer>
     <script type="module" src="/src/main.ts"></script>
   </body>
