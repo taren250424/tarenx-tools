@@ -1,5 +1,3 @@
 import "./header.scss";
 
-export function init() {
-	
-}
+export function init() {}

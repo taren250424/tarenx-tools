@@ -43,7 +43,7 @@ applyTheme(isDarkMode);
 
 function setEditorText(editor: EditorView, text: string) {
   editor.dispatch({
-    changes: { from: 0, to: editor.state.doc.length, insert: text }
+    changes: { from: 0, to: editor.state.doc.length, insert: text },
   });
 }
 
@@ -65,7 +65,11 @@ function hideStatusBar() {
   statusBar.className = "status-bar hidden";
 }
 
-function openYamlModal(modal: HTMLElement, outputText: HTMLElement, content: string) {
+function openYamlModal(
+  modal: HTMLElement,
+  outputText: HTMLElement,
+  content: string
+) {
   outputText.textContent = content;
   modal.classList.remove("hidden");
 }
@@ -104,14 +108,14 @@ function main() {
       json(),
       themeCompartment.of(isDarkMode ? oneDark : []),
       EditorView.theme({
-        "&": { height: "100%" }
-      })
-    ]
+        "&": { height: "100%" },
+      }),
+    ],
   });
 
   const editor = new EditorView({
     state,
-    parent: editorParent
+    parent: editorParent,
   });
 
   // Toggle Theme
@@ -120,7 +124,7 @@ function main() {
     applyTheme(isDarkMode);
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
     editor.dispatch({
-      effects: themeCompartment.reconfigure(isDarkMode ? oneDark : [])
+      effects: themeCompartment.reconfigure(isDarkMode ? oneDark : []),
     });
   });
 

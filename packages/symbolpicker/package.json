@@ -1,19 +1,19 @@
 {
-	"name": "symbolpicker",
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "tsx scripts/build-data.ts && vite",
-		"build": "tsx scripts/build-data.ts && tsc -b && vite build",
-		"lint": "eslint .",
-		"preview": "vite preview"
-	},
-	"dependencies": {
-		"@taren250424/aero": "^0.1.1",
-		"sass": "^1.87.0"
-	},
-	"devDependencies": {
-		"tsx": "^4.22.4",
-		"typescript": "~5.7.2"
-	}
+  "name": "symbolpicker",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx scripts/build-data.ts && vite",
+    "build": "tsx scripts/build-data.ts && tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@taren250424/aero": "^0.1.1",
+    "sass": "^1.87.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.22.4",
+    "typescript": "~5.7.2"
+  }
 }

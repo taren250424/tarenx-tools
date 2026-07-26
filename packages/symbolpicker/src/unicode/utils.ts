@@ -3,7 +3,7 @@ export function getUnicodes(start: number, end: number) {
     const code = start + i;
     return {
       char: String.fromCodePoint(code),
-      code: "U+" + code.toString(16).toUpperCase()
+      code: "U+" + code.toString(16).toUpperCase(),
     };
   });
-};
+}

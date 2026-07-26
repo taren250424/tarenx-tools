@@ -1,5 +1,3 @@
 import "./footer.scss";
 
-export function init() {
-
-}
+export function init() {}

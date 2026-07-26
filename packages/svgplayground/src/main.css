@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code&display=swap");
 
 :root {
   --bg-color: #0f111a;
@@ -10,7 +10,7 @@
 }
 
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -36,7 +36,8 @@ header {
   z-index: 10;
 }
 
-.header-spacer, .header-actions {
+.header-spacer,
+.header-actions {
   flex: 1;
 }
 
@@ -100,7 +101,7 @@ section {
   border-radius: 16px;
   border: 1px solid var(--border-color);
 
-	overflow: hidden;
+  overflow: hidden;
 }
 
 #canvas {
@@ -110,13 +111,17 @@ section {
     linear-gradient(45deg, transparent 75%, #1e2230 75%),
     linear-gradient(-45deg, transparent 75%, #1e2230 75%);
   background-size: 20px 20px;
-  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  background-position:
+    0 0,
+    0 10px,
+    10px -10px,
+    -10px 0px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-	padding: 2rem;
+  padding: 2rem;
 }
 
 #canvas svg {
@@ -131,7 +136,7 @@ section {
 }
 
 .cm-scroller {
-  font-family: 'Fira Code', monospace;
+  font-family: "Fira Code", monospace;
   font-size: 0.95rem;
 }
 

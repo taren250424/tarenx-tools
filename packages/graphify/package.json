@@ -1,21 +1,21 @@
 {
-	"name": "graphify",
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"lint": "eslint .",
-		"preview": "vite preview"
-	},
-	"devDependencies": {
-		"@types/papaparse": "^5.5.2",
-		"typescript": "~5.7.2"
-	},
-	"dependencies": {
-		"chart.js": "^4.5.1",
-		"chartjs-adapter-date-fns": "^3.0.0",
-		"date-fns": "^4.1.0",
-		"papaparse": "^5.5.3"
-	}
+  "name": "graphify",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/papaparse": "^5.5.2",
+    "typescript": "~5.7.2"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.1",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "date-fns": "^4.1.0",
+    "papaparse": "^5.5.3"
+  }
 }

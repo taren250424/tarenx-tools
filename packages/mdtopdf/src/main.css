@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap");
 
 :root {
   --bg-color: #f8fafc;
@@ -19,8 +19,8 @@
   --btn-secondary-border: #cbd5e1;
   --btn-secondary-hover: #f1f5f9;
 
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: 'Fira Code', monospace;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "Fira Code", monospace;
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --transition-speed: 0.15s;

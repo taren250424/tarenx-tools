@@ -17,7 +17,7 @@ const defaultSVG = `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg
 </svg>`;
 
 function updateCanvas(canvas: HTMLElement, svgContent: string) {
-	canvas.innerHTML = svgContent;
+  canvas.innerHTML = svgContent;
 }
 
 function downloadSVG(svgContent: string) {
@@ -33,9 +33,9 @@ function downloadSVG(svgContent: string) {
 }
 
 function main() {
-	const canvas = document.getElementById("canvas")!
-  const editorParent = document.getElementById("editor")!
-	const downloadBtn = document.getElementById("download-btn")!
+  const canvas = document.getElementById("canvas")!;
+  const editorParent = document.getElementById("editor")!;
+  const downloadBtn = document.getElementById("download-btn")!;
 
   const state = EditorState.create({
     doc: defaultSVG,
@@ -49,21 +49,21 @@ function main() {
         }
       }),
       EditorView.theme({
-        "&": { height: "100%" }
-      })
-    ]
+        "&": { height: "100%" },
+      }),
+    ],
   });
 
   const editor = new EditorView({
     state,
-    parent: editorParent
+    parent: editorParent,
   });
 
-	downloadBtn.addEventListener("click", () => {
-		downloadSVG(editor.state.doc.toString());
-	});
+  downloadBtn.addEventListener("click", () => {
+    downloadSVG(editor.state.doc.toString());
+  });
 
-	updateCanvas(canvas, defaultSVG);
+  updateCanvas(canvas, defaultSVG);
 }
 
 document.addEventListener("DOMContentLoaded", main);

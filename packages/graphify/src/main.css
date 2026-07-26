@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap");
 
 :root {
   /* Default: Light Theme */
@@ -29,8 +29,8 @@
   --axis-bg: rgba(59, 130, 246, 0.14);
   --chart-grid: rgba(15, 23, 42, 0.08);
 
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: 'Fira Code', monospace;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "Fira Code", monospace;
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --transition-speed: 0.15s;
@@ -63,7 +63,7 @@ html.dark {
   padding: 0;
   box-sizing: border-box;
   font-family: var(--font-sans);
-	outline: none;
+  outline: none;
 }
 
 html,
@@ -76,7 +76,9 @@ body {
   color: var(--text-color);
   display: flex;
   flex-direction: column;
-  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+  transition:
+    background-color var(--transition-speed) ease,
+    color var(--transition-speed) ease;
 }
 
 /* ------------------------------------------------------------- header */
@@ -158,7 +160,7 @@ header {
   background-color: var(--btn-secondary-hover);
 }
 
-.btn[aria-pressed='true'] {
+.btn[aria-pressed="true"] {
   background-color: var(--accent-light);
   color: var(--accent-color);
   border-color: var(--accent-color);
@@ -191,7 +193,7 @@ header {
   border-left: 1px solid var(--btn-secondary-border);
 }
 
-.seg-btn[aria-pressed='true'] {
+.seg-btn[aria-pressed="true"] {
   background-color: var(--accent-light);
   color: var(--accent-color);
 }
@@ -525,7 +527,7 @@ main {
   opacity: 0.35;
 }
 
-.data-table .ctl input[type='color'] {
+.data-table .ctl input[type="color"] {
   width: 16px;
   height: 16px;
   padding: 0;
