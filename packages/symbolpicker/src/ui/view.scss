@@ -9,5 +9,42 @@
 
 body {
   display: grid;
-  grid-template-rows: 300px 700px 300px;
+  grid-template-rows: 300px 700px auto 300px;
+}
+
+.page-content {
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  color: $gray_5;
+  line-height: 1.7;
+  font-size: 0.95rem;
+
+  h2 {
+    color: $gray_6;
+    font-size: 1.15rem;
+    border-bottom: 1px solid $gray_2;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  ul {
+    padding-left: 1.25rem;
+  }
+
+  li {
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    margin-bottom: 0.6rem;
+  }
+
+  strong {
+    color: $gray_6;
+  }
 }
