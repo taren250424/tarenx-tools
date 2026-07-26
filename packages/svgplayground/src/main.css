@@ -80,14 +80,14 @@ aside.ad {
   border: 1px solid var(--border-color);
 }
 
-section {
+main > section {
   display: flex;
   gap: 2rem;
   flex-direction: row;
 }
 
 @media (max-width: 800px) {
-  section {
+  main > section {
     flex-direction: column;
   }
 }
