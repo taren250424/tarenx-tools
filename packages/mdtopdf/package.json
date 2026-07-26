@@ -1,0 +1,19 @@
+{
+	"name": "mdtopdf",
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"lint": "eslint .",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"typescript": "~5.7.2"
+	},
+	"dependencies": {
+		"dompurify": "^3.2.4",
+		"html2pdf.js": "^0.12.1",
+		"marked": "^16.0.0"
+	}
+}

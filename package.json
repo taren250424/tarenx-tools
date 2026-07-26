@@ -20,6 +20,8 @@
     "build:jsonformatter": "pnpm --filter jsonformatter run build",
 		"dev:graphify": "pnpm --filter graphify run dev",
     "build:graphify": "pnpm --filter graphify run build",
+		"dev:mdtopdf": "pnpm --filter mdtopdf run dev",
+    "build:mdtopdf": "pnpm --filter mdtopdf run build",
 
 		"preview": "pnpm run build && node scripts/preview.mjs",
     "deploy": "pnpm run build && node scripts/deploy.mjs",
