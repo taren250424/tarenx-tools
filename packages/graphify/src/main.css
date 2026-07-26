@@ -66,12 +66,12 @@ html.dark {
   outline: none;
 }
 
-html,
-body {
+html {
   height: 100%;
 }
 
 body {
+  min-height: 100%;
   background-color: var(--bg-color);
   color: var(--text-color);
   display: flex;
@@ -79,6 +79,12 @@ body {
   transition:
     background-color var(--transition-speed) ease,
     color var(--transition-speed) ease;
+}
+
+.app-viewport {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ------------------------------------------------------------- header */
@@ -594,4 +600,50 @@ main {
   .format-override input {
     width: 140px;
   }
+}
+
+/* ------------------------------------------------------------- page content */
+
+.page-content {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.page-content h2 {
+  color: var(--text-color);
+  font-size: 1.15rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.page-content ul {
+  padding-left: 1.25rem;
+}
+
+.page-content li {
+  margin-bottom: 0.4rem;
+}
+
+.page-content p {
+  margin-bottom: 0.6rem;
+}
+
+.page-content strong {
+  color: var(--text-color);
+}
+
+.page-content code {
+  background-color: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  font-size: 0.9em;
 }
