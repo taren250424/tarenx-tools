@@ -1,7 +1,6 @@
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState } from "@codemirror/state";
 import { html } from "@codemirror/lang-html";
-import { oneDark } from "@codemirror/theme-one-dark";
 import "./main.css";
 
 const defaultSVG = `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +41,6 @@ function main() {
     extensions: [
       basicSetup,
       html(),
-      oneDark,
       EditorView.updateListener.of((update) => {
         if (update.docChanged) {
           updateCanvas(canvas, update.state.doc.toString());
