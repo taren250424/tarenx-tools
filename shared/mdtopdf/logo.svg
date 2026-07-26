@@ -1,0 +1,10 @@
+<svg width="100%" viewBox="0 0 522 522" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>MD to PDF logo</title>
+<desc>A flat square icon with rounded corners showing a document page with a folded corner and a downward arrow, representing Markdown to PDF conversion.</desc>
+<rect x="0" y="0" width="512" height="512" rx="96" fill="#EF4444"/>
+<path d="M152 80 H296 L376 160 V416 Q376 432 360 432 H152 Q136 432 136 416 V96 Q136 80 152 80 Z" fill="#FFFFFF"/>
+<path d="M296 80 L376 160 H312 Q296 160 296 144 Z" fill="#FECACA"/>
+<rect x="176" y="196" width="160" height="18" rx="9" fill="#EF4444" opacity="0.35"/>
+<rect x="176" y="232" width="118" height="18" rx="9" fill="#EF4444" opacity="0.35"/>
+<path d="M256 284 V380 M214 338 L256 380 L298 338" fill="none" stroke="#EF4444" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

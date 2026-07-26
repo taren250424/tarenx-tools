@@ -1,35 +1,152 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
+  <head>
+    <meta charset="UTF-8" />
 
-		<meta name="description" content="Browse and copy Unicode symbols, arrows, math, emoji, and more. Click any symbol to copy it to your clipboard." />
+    <meta
+      name="description"
+      content="Browse and copy Unicode symbols, arrows, math, emoji, and more. Click any symbol to copy it to your clipboard."
+    />
 
-		<link rel="canonical" href="https://tools.tarenx.com/symbolpicker/" />
-		<link rel="icon" type="image/svg+xml" href="shared/symbolpicker/favicon.svg" />
+    <link rel="canonical" href="https://tools.tarenx.com/symbolpicker/" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="shared/symbolpicker/favicon.svg"
+    />
 
-		<meta property="og:title" content="Symbol Picker" />
-  	<meta property="og:description" content="Browse and copy Unicode symbols, arrows, math, emoji, and more." />
-		<meta property="og:image" content="shared/symbolpicker/og.svg" />
+    <meta property="og:title" content="Symbol Picker" />
+    <meta
+      property="og:description"
+      content="Browse and copy Unicode symbols, arrows, math, emoji, and more."
+    />
+    <meta property="og:image" content="shared/symbolpicker/og.svg" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Symbol Picker</title>
-		<script type="module" crossorigin src="/symbolpicker/assets/index-CjXg5vdw.js"></script>
-		<link rel="stylesheet" crossorigin href="/symbolpicker/assets/index-DodEjPeD.css">
-	</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Symbol Picker</title>
+    <script type="module" crossorigin src="/symbolpicker/assets/index-2t8mmKvY.js"></script>
+    <link rel="stylesheet" crossorigin href="/symbolpicker/assets/index-BmFO8dhT.css">
+  </head>
 
-	<body>
-		<header>
-			<h1>Symbol Picker</h1>
-		</header>
-		<main>
-			<aside class="ad"></aside>
-			<section>
-				<nav id="nav-container"></nav>
-				<div id="unicode-container"></div>
-			</section>
-			<aside class="ad"></aside>
-		</main>
-		<footer></footer>
-	</body>
+  <body>
+    <header>
+      <h1>Symbol Picker</h1>
+    </header>
+    <main>
+      <aside class="ad"></aside>
+      <section>
+        <nav id="nav-container"></nav>
+        <div id="unicode-container"></div>
+      </section>
+      <aside class="ad"></aside>
+    </main>
+
+    <article class="page-content">
+      <section>
+        <h2>About this tool</h2>
+        <p>
+          Symbol Picker is a free library of Unicode symbols and special
+          characters you can copy with a single click — arrows, math signs,
+          stars, check marks, currency signs, Greek letters, box-drawing
+          characters, and many more. No keyboard shortcuts to memorize, no
+          character map to dig through.
+        </p>
+      </section>
+
+      <section>
+        <h2>How to use</h2>
+        <ul>
+          <li>Browse the categories in the sidebar or scroll the grid.</li>
+          <li>Click any symbol to copy it to your clipboard instantly.</li>
+          <li>
+            Paste it anywhere — documents, chats, social media, code comments,
+            spreadsheets, or design tools.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Popular symbol categories</h2>
+        <ul>
+          <li>
+            <strong>Arrows</strong> — → ← ↑ ↓ ⇒ ⇄ ↻ for navigation hints,
+            diagrams, and shortcuts
+          </li>
+          <li>
+            <strong>Check marks &amp; crosses</strong> — ✓ ✔ ✗ ✘ for task lists
+            and comparison tables
+          </li>
+          <li><strong>Stars</strong> — ★ ☆ ✦ ✨ for ratings and decoration</li>
+          <li>
+            <strong>Math</strong> — ± × ÷ ≈ ≠ ≤ ∞ ∑ √ for equations and
+            technical writing
+          </li>
+          <li>
+            <strong>Currency</strong> — € £ ¥ ₩ ₹ ¢ for prices in any locale
+          </li>
+          <li>
+            <strong>Punctuation &amp; typography</strong> — — – … « » ‹ › for
+            clean, professional text
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>FAQ</h2>
+        <p>
+          <strong>Why do some symbols show as an empty box (□)?</strong> The
+          symbol is valid Unicode, but the font on your device doesn't include a
+          glyph for it. The person you send it to may still see it correctly if
+          their device has better font coverage.
+        </p>
+        <p>
+          <strong>Will a copied symbol work everywhere?</strong> Yes — these are
+          standard Unicode characters, not images. Any app that handles text
+          (email, chat, documents, code) can display them, subject to font
+          support.
+        </p>
+        <p>
+          <strong>What's the difference between a symbol and an emoji?</strong>
+          Both are Unicode characters. Emoji are typically rendered as colorful
+          pictures by the operating system, while symbols render as regular text
+          glyphs that inherit your font size and color.
+        </p>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why do some symbols show as an empty box?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The symbol is valid Unicode, but the font on your device doesn't include a glyph for it. The person you send it to may still see it correctly if their device has better font coverage."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will a copied symbol work everywhere?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — these are standard Unicode characters, not images. Any app that handles text can display them, subject to font support."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between a symbol and an emoji?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Both are Unicode characters. Emoji are typically rendered as colorful pictures by the operating system, while symbols render as regular text glyphs that inherit your font size and color."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <footer></footer>
+  </body>
 </html>

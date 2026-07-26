@@ -1,0 +1,14 @@
+<svg width="100%" viewBox="0 0 1210 640" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>MD to PDF Open Graph image</title>
+<desc>A wide banner with a red background, the MD to PDF document logo on the left, and the wordmark "MD to PDF" with a tagline on the right.</desc>
+<rect x="0" y="0" width="1200" height="630" fill="#EF4444"/>
+<g transform="translate(150,139)">
+<path d="M16 0 H160 L240 80 V336 Q240 352 224 352 H16 Q0 352 0 336 V16 Q0 0 16 0 Z" fill="#FFFFFF"/>
+<path d="M160 0 L240 80 H176 Q160 80 160 64 Z" fill="#FECACA"/>
+<rect x="40" y="116" width="160" height="18" rx="9" fill="#EF4444" opacity="0.35"/>
+<rect x="40" y="152" width="118" height="18" rx="9" fill="#EF4444" opacity="0.35"/>
+<path d="M120 204 V300 M78 258 L120 300 L162 258" fill="none" stroke="#EF4444" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<text x="500" y="300" font-family="sans-serif" font-size="72" font-weight="500" fill="#FFFFFF">MD to PDF</text>
+<text x="500" y="350" font-family="sans-serif" font-size="28" font-weight="400" fill="#FEE2E2">Convert Markdown to PDF right in your browser</text>
+</svg>
