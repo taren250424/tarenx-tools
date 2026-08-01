@@ -3,6 +3,7 @@ import { EditorState, Compartment } from "@codemirror/state";
 import { json } from "@codemirror/lang-json";
 import { oneDark } from "@codemirror/theme-one-dark";
 import yaml from "js-yaml";
+import "../../shared/ads/ad-slot.css";
 import "./main.css";
 
 const defaultJSON = `{

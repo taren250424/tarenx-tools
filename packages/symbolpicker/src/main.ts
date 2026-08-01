@@ -1,3 +1,4 @@
+import "../../shared/ads/ad-slot.css";
 import { init as initView } from "./ui/view";
 
 function main() {

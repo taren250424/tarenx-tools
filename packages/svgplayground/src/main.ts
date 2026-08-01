@@ -1,6 +1,7 @@
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState } from "@codemirror/state";
 import { html } from "@codemirror/lang-html";
+import "../../shared/ads/ad-slot.css";
 import "./main.css";
 
 const defaultSVG = `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
