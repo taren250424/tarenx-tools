@@ -2,9 +2,17 @@ import type { Unicode } from "./types";
 
 export const unicodeRanges: Record<string, Unicode> = {
   // ── Latin & Greek ──────────────────────────────────────────────
-  latin_extended_a_and_b: {
+  latin: {
     label: "Latin",
-    range: [[0x00c0, 0x024f]], // Unicode block name: Latin Extended-A/B
+    // U+0080–009F: C1 control characters (invisible)
+    // U+00A0: no-break space (invisible)
+    // U+00AD: soft hyphen (invisible)
+    range: [
+      [0x00a1, 0x00ac], // Unicode block name: Latin-1 Supplement
+      [0x00ae, 0x00ff], // Unicode block name: Latin-1 Supplement
+      [0x0100, 0x017f], // Unicode block name: Latin Extended-A
+      [0x0180, 0x024f], // Unicode block name: Latin Extended-B
+    ],
   },
   greek_and_coptic: {
     label: "Greek & Coptic",
@@ -71,7 +79,7 @@ export const unicodeRanges: Record<string, Unicode> = {
       [0x2190, 0x21ff], // Unicode block name: Arrows
       [0x27f0, 0x27ff], // Unicode block name: Supplemental Arrows-A
       [0x2900, 0x297f], // Unicode block name: Supplemental Arrows-B
-      [0x2b00, 0x2bff], // Unicode block name: Misc Symbols & Arrows
+      [0x2b00, 0x2bff], // Unicode block name: Miscellaneous Symbols and Arrows
     ],
   },
 
@@ -79,10 +87,10 @@ export const unicodeRanges: Record<string, Unicode> = {
   math: {
     label: "Math",
     range: [
-      [0x2200, 0x22ff], // Math Operators
-      [0x27c0, 0x27ef], // Math Symbols-A
-      [0x2980, 0x29ff], // Math Symbols-B
-      [0x2a00, 0x2aff], // Supplemental Math Operators
+      [0x2200, 0x22ff], // Unicode block name: Mathematical Operators
+      [0x27c0, 0x27ef], // Unicode block name: Miscellaneous Mathematical Symbols-A
+      [0x2980, 0x29ff], // Unicode block name: Miscellaneous Mathematical Symbols-B
+      [0x2a00, 0x2aff], // Unicode block name: Supplemental Mathematical Operators
     ],
   },
 
