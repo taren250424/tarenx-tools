@@ -1,10 +1,15 @@
 /**
- * Verifies that every `// Unicode block name: ...` comment in constants.ts
- * cites a real Unicode block and that the range it annotates stays inside it.
+ * Checks constants.ts against the Unicode Character Database:
  *
- * Blocks.txt is vendored next to this script so the check is deterministic and
- * offline. Refresh it from https://www.unicode.org/Public/UCD/latest/ucd/Blocks.txt
- * when adopting a newer Unicode version.
+ *   - every `// Unicode block name: ...` comment cites a real block
+ *   - the range an inline comment annotates stays inside that block
+ *   - cited blocks and the blocks the ranges touch are the same set
+ *   - no range covers an unassigned code point (those render as tofu)
+ *
+ * Blocks.txt and UnicodeData.txt are vendored next to this script so the check
+ * is deterministic and offline. Refresh both from
+ * https://www.unicode.org/Public/UCD/latest/ucd/ when adopting a newer Unicode
+ * version.
  */
 import fs from "fs";
 import path from "path";
@@ -12,9 +17,24 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BLOCKS_PATH = path.resolve(__dirname, "Blocks.txt");
+const UNICODE_DATA_PATH = path.resolve(__dirname, "UnicodeData.txt");
 const CONSTANTS_PATH = path.resolve(__dirname, "../src/unicode/constants.ts");
 
 const hex = (n: number) => n.toString(16).toUpperCase().padStart(4, "0");
+
+/** Collapses a sorted code point list into `U+0378-0379, U+0380` style runs. */
+function formatRuns(codePoints: number[]): string {
+  const runs: string[] = [];
+  for (let i = 0; i < codePoints.length; ) {
+    let j = i;
+    while (j + 1 < codePoints.length && codePoints[j + 1] === codePoints[j] + 1) j++;
+    runs.push(
+      i === j ? `U+${hex(codePoints[i])}` : `U+${hex(codePoints[i])}-${hex(codePoints[j])}`
+    );
+    i = j + 1;
+  }
+  return runs.join(", ");
+}
 
 type Block = { start: number; end: number; name: string };
 
@@ -27,6 +47,45 @@ function readBlocks(): { blocks: Block[]; version: string } {
     if (m) blocks.push({ start: parseInt(m[1], 16), end: parseInt(m[2], 16), name: m[3] });
   }
   return { blocks, version };
+}
+
+/**
+ * Assigned code points, as sorted [start, end] pairs. UnicodeData.txt lists one
+ * code point per line except for large runs, which it compresses into a
+ * `<..., First>` / `<..., Last>` pair.
+ */
+function readAssigned(): [number, number][] {
+  const spans: [number, number][] = [];
+  let rangeStart: number | null = null;
+
+  for (const line of fs.readFileSync(UNICODE_DATA_PATH, "utf-8").split(/\r?\n/)) {
+    const fields = line.split(";");
+    if (fields.length < 2) continue;
+    const cp = parseInt(fields[0], 16);
+    const name = fields[1];
+
+    if (name.endsWith(", First>")) rangeStart = cp;
+    else if (name.endsWith(", Last>")) {
+      spans.push([rangeStart ?? cp, cp]);
+      rangeStart = null;
+    } else spans.push([cp, cp]);
+  }
+
+  return spans;
+}
+
+function isAssignedLookup(spans: [number, number][]) {
+  return (cp: number) => {
+    let lo = 0;
+    let hi = spans.length - 1;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (cp < spans[mid][0]) hi = mid - 1;
+      else if (cp > spans[mid][1]) lo = mid + 1;
+      else return true;
+    }
+    return false;
+  };
 }
 
 type Category = {
@@ -72,8 +131,10 @@ function readCategories(): Category[] {
 
 const { blocks, version } = readBlocks();
 const byName = new Map(blocks.map((b) => [b.name, b]));
+const isAssigned = isAssignedLookup(readAssigned());
 const categories = readCategories();
 const problems: string[] = [];
+let codePointCount = 0;
 
 for (const cat of categories) {
   if (cat.names.length === 0) {
@@ -113,11 +174,21 @@ for (const cat of categories) {
       if (!touched.has(name))
         problems.push(`L${cat.line}  ${cat.key}: cites "${name}" but no range falls in it`);
   }
+
+  // 4. no range may cover an unassigned code point
+  const unassigned: number[] = [];
+  for (const [start, end] of cat.ranges)
+    for (let cp = start; cp <= end; cp++) {
+      codePointCount++;
+      if (!isAssigned(cp)) unassigned.push(cp);
+    }
+  if (unassigned.length > 0)
+    problems.push(`L${cat.line}  ${cat.key}: unassigned -> ${formatRuns(unassigned)}`);
 }
 
 for (const problem of problems) console.error(problem);
 console.log(
   `${problems.length ? "\n" : ""}Unicode ${version} | ${categories.length} categories | ` +
-    `${problems.length} problem(s)`
+    `${codePointCount} code points | ${problems.length} problem(s)`
 );
 process.exit(problems.length ? 1 : 0);
