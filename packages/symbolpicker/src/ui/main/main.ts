@@ -92,11 +92,13 @@ export function init() {
 }
 
 /**
- * Matches on Unicode name, on a `2220` / `U+2220` code point, or on the
- * character itself, ranked so exact hits come before substring ones.
+ * Matches on Unicode name, on the Korean and English keywords in aliases.ts,
+ * on a `2220` / `U+2220` code point, or on the character itself, ranked so
+ * exact hits come before substring ones.
  */
 function search(query: string): UnicodeEntry[] {
   const needle = query.toUpperCase();
+  const keyword = query.toLowerCase();
   const hex = needle.replace(/^U\+/, "");
   const codePoint =
     /^U\+[0-9A-F]{2,6}$/.test(needle) || /^(?=[0-9A-F]{2,6}$)[A-F]*\d/.test(hex)
@@ -108,11 +110,14 @@ function search(query: string): UnicodeEntry[] {
   const substring: UnicodeEntry[] = [];
 
   for (const entry of searchIndex) {
-    const [char, name] = entry;
+    const [char, name, keywords] = entry;
     if (char === query || (codePoint !== null && char.codePointAt(0) === codePoint))
       exact.push(entry);
-    else if (name === needle || name.startsWith(needle)) prefix.push(entry);
+    else if (keywords?.includes(keyword)) exact.push(entry);
+    else if (name.startsWith(needle)) prefix.push(entry);
+    else if (keywords?.some((word) => word.startsWith(keyword))) prefix.push(entry);
     else if (name.includes(needle)) substring.push(entry);
+    else if (keywords?.some((word) => word.includes(keyword))) substring.push(entry);
   }
 
   return [...exact, ...prefix, ...substring];

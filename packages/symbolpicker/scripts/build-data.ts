@@ -8,6 +8,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { unicodeRanges } from "../src/unicode/constants.js";
+import { aliases } from "../src/unicode/aliases.js";
 import { getUnicodes } from "../src/unicode/utils.js";
 import type { UnicodeData, UnicodeEntry } from "../src/unicode/types.js";
 
@@ -31,6 +32,7 @@ function readNames(): Map<number, string> {
 const names = readNames();
 const data: UnicodeData = {};
 const unnamed: string[] = [];
+const usedAliases = new Set<string>();
 
 for (const [key, value] of Object.entries(unicodeRanges)) {
   const entries: UnicodeEntry[] = [];
@@ -41,7 +43,13 @@ for (const [key, value] of Object.entries(unicodeRanges)) {
         unnamed.push(`${key} U+${codePoint.toString(16).toUpperCase()}`);
         continue;
       }
-      entries.push([String.fromCodePoint(codePoint), name]);
+      const char = String.fromCodePoint(codePoint);
+      const keywords = aliases[char];
+      if (keywords === undefined) entries.push([char, name]);
+      else {
+        usedAliases.add(char);
+        entries.push([char, name, keywords.map((word) => word.toLowerCase())]);
+      }
     }
   }
   data[key] = entries;
@@ -50,6 +58,13 @@ for (const [key, value] of Object.entries(unicodeRanges)) {
 if (unnamed.length > 0) {
   console.error(`No Unicode name for ${unnamed.length} code point(s):`);
   for (const item of unnamed.slice(0, 20)) console.error(`  ${item}`);
+  process.exit(1);
+}
+
+// An alias for a character no category contains would never be searchable.
+const orphaned = Object.keys(aliases).filter((char) => !usedAliases.has(char));
+if (orphaned.length > 0) {
+  console.error(`aliases.ts keys not present in any category: ${orphaned.join(" ")}`);
   process.exit(1);
 }
 
