@@ -86,11 +86,12 @@ export const unicodeRanges: Record<string, Unicode> = {
   // ── Math ───────────────────────────────────────────────────────
   math: {
     label: "Math",
+    // U+2AFE–2AFF: White Vertical Bar, N-Ary White Vertical Bar (limited font support)
     range: [
       [0x2200, 0x22ff], // Unicode block name: Mathematical Operators
       [0x27c0, 0x27ef], // Unicode block name: Miscellaneous Mathematical Symbols-A
       [0x2980, 0x29ff], // Unicode block name: Miscellaneous Mathematical Symbols-B
-      [0x2a00, 0x2aff], // Unicode block name: Supplemental Mathematical Operators
+      [0x2a00, 0x2afd], // Unicode block name: Supplemental Mathematical Operators
     ],
   },
 
