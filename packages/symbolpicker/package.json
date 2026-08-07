@@ -6,7 +6,8 @@
     "dev": "tsx scripts/build-data.ts && vite",
     "build": "tsx scripts/build-data.ts && tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify": "tsx scripts/verify-blocks.ts"
   },
   "dependencies": {
     "@taren250424/aero": "^0.1.1",
