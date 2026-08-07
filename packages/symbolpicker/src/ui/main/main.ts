@@ -1,7 +1,11 @@
 import "./main.scss";
 import { unicodeRanges } from "../../unicode/constants";
 import generatedData from "../../unicode/generated-data.json";
+import type { UnicodeData, UnicodeEntry } from "../../unicode/types";
 import { AeroToast } from "@taren250424/aero";
+
+// JSON imports widen tuples to string[], so the tuple shape has to be restored.
+const unicodeData = generatedData as unknown as UnicodeData;
 
 export function init() {
   const navContainer = document.getElementById("nav-container")!;
@@ -70,10 +74,19 @@ function updateURL(value: string) {
   window.history.pushState({}, "", url.toString());
 }
 
+const escapeHtml = (value: string) =>
+  value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+
+function toButton([char, name]: UnicodeEntry) {
+  const code = "U+" + char.codePointAt(0)!.toString(16).toUpperCase();
+  const title = escapeHtml(`${code} ${name}`);
+  const value = escapeHtml(char);
+  return `<button class="unicode-item" title="${title}" data-char="${value}">${value}</button>`;
+}
+
 function renderUnicode(
   unicodeContainer: HTMLElement,
   key: keyof typeof unicodeRanges
 ) {
-  unicodeContainer.innerHTML =
-    (generatedData as Record<string, string>)[key] || "";
+  unicodeContainer.innerHTML = (unicodeData[key] ?? []).map(toButton).join("");
 }
