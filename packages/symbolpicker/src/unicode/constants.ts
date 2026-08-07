@@ -16,7 +16,16 @@ export const unicodeRanges: Record<string, Unicode> = {
   },
   greek_and_coptic: {
     label: "Greek & Coptic",
-    range: [[0x0370, 0x03ff]], // Unicode block name: Greek and Coptic
+    // Unicode block name: Greek and Coptic
+    // U+0378–0379, U+0380–0383, U+038B, U+038D, U+03A2: unassigned
+    range: [
+      [0x0370, 0x0377],
+      [0x037a, 0x037f],
+      [0x0384, 0x038a],
+      [0x038c, 0x038c],
+      [0x038e, 0x03a1],
+      [0x03a3, 0x03ff],
+    ],
   },
 
   // ── Punctuation ────────────────────────────────────────────────
@@ -75,11 +84,13 @@ export const unicodeRanges: Record<string, Unicode> = {
   // ── Arrows ─────────────────────────────────────────────────────
   arrows: {
     label: "Arrows",
+    // U+2B74–2B75: unassigned
     range: [
       [0x2190, 0x21ff], // Unicode block name: Arrows
       [0x27f0, 0x27ff], // Unicode block name: Supplemental Arrows-A
       [0x2900, 0x297f], // Unicode block name: Supplemental Arrows-B
-      [0x2b00, 0x2bff], // Unicode block name: Miscellaneous Symbols and Arrows
+      [0x2b00, 0x2b73], // Unicode block name: Miscellaneous Symbols and Arrows
+      [0x2b76, 0x2bff], // Unicode block name: Miscellaneous Symbols and Arrows
     ],
   },
 
@@ -157,8 +168,11 @@ export const unicodeRanges: Record<string, Unicode> = {
   hiragana: {
     label: "Hiragana",
     // Unicode block name: Hiragana
-    // U+3040 is unassigned
-    range: [[0x3041, 0x309f]],
+    // U+3040, U+3097–3098: unassigned
+    range: [
+      [0x3041, 0x3096],
+      [0x3099, 0x309f],
+    ],
   },
   katakana: {
     // Unicode block name: Katakana
