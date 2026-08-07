@@ -29,8 +29,12 @@ export const aliases: Record<string, string[]> = {
   "∴": ["따라서", "그러므로"],
   "∵": ["왜냐하면", "이유"],
   "π": ["파이", "원주율"],
-  "Ω": ["옴", "오메가", "저항"],
-  "μ": ["마이크로", "뮤"],
+  // Escaped because the Greek letter and the technical symbol are
+  // indistinguishable on screen, and a literal key silently picks one of them.
+  "\u03a9": ["오메가"], // GREEK CAPITAL LETTER OMEGA
+  "\u2126": ["옴", "저항"], // OHM SIGN
+  "\u03bc": ["뮤"], // GREEK SMALL LETTER MU
+  "\u00b5": ["마이크로"], // MICRO SIGN
   "Δ": ["델타", "변화량"],
   "℃": ["섭씨", "온도"],
   "℉": ["화씨", "온도"],
