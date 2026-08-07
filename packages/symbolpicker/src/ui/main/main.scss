@@ -15,6 +15,7 @@ main {
 main > section {
   display: grid;
   grid-template-columns: 300px 1fr;
+  grid-template-rows: auto minmax(0, 1fr);
 
   overflow: hidden;
 }
@@ -22,6 +23,51 @@ main > section {
 main > section > * {
   overflow: auto;
   min-width: 0;
+}
+
+#search-bar {
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+
+  overflow: visible;
+
+  input {
+    flex: 1;
+    min-width: 0;
+
+    padding: 8px 12px;
+    font-size: 1rem;
+    font-family: inherit;
+
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    &:focus {
+      outline: none;
+      border-color: #333;
+    }
+  }
+}
+
+#search-status {
+  flex: none;
+
+  font-size: 0.85rem;
+  color: #666;
+
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  #search-status {
+    display: none;
+  }
 }
 
 #nav-container .nav-item {

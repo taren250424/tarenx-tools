@@ -7,9 +7,38 @@ import { AeroToast } from "@taren250424/aero";
 // JSON imports widen tuples to string[], so the tuple shape has to be restored.
 const unicodeData = generatedData as unknown as UnicodeData;
 
+/** Every character, flattened once so search does not care about categories. */
+const searchIndex = Object.values(unicodeData).flat();
+
+/** Enough to scroll through; a bare "a" would otherwise render thousands. */
+const MAX_RESULTS = 300;
+
 export function init() {
   const navContainer = document.getElementById("nav-container")!;
   const unicodeContainer = document.getElementById("unicode-container")!;
+  const searchInput = document.getElementById("search-input") as HTMLInputElement;
+  const searchStatus = document.getElementById("search-status")!;
+
+  const render = () => {
+    const query = searchInput.value.trim();
+
+    if (query === "") {
+      searchStatus.textContent = "";
+      renderEntries(unicodeContainer, unicodeData[getSelectedFromURL()] ?? []);
+      return;
+    }
+
+    const matches = search(query);
+    renderEntries(unicodeContainer, matches.slice(0, MAX_RESULTS));
+    searchStatus.textContent = describe(matches.length, query);
+  };
+
+  searchInput.addEventListener("input", render);
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || searchInput.value === "") return;
+    searchInput.value = "";
+    render();
+  });
 
   navContainer.addEventListener("click", (e) => {
     const item = e.target as HTMLElement;
@@ -18,9 +47,10 @@ export function init() {
     navContainer.querySelector(".active")?.classList.remove("active");
     item.classList.add("active");
 
-    const key = item.dataset.key!;
-    updateURL(key);
-    renderUnicode(unicodeContainer, key);
+    // Picking a category is a request to leave the search results.
+    searchInput.value = "";
+    updateURL(item.dataset.key!);
+    render();
   });
 
   unicodeContainer.addEventListener("click", (e) => {
@@ -42,7 +72,8 @@ export function init() {
       .querySelector(`[data-key="${newSelected}"]`)
       ?.classList.add("active");
 
-    renderUnicode(unicodeContainer, newSelected);
+    searchInput.value = "";
+    render();
   });
 
   const initialKey = getSelectedFromURL();
@@ -57,7 +88,40 @@ export function init() {
       navContainer.appendChild(div);
     });
 
-  renderUnicode(unicodeContainer, getSelectedFromURL());
+  render();
+}
+
+/**
+ * Matches on Unicode name, on a `2220` / `U+2220` code point, or on the
+ * character itself, ranked so exact hits come before substring ones.
+ */
+function search(query: string): UnicodeEntry[] {
+  const needle = query.toUpperCase();
+  const hex = needle.replace(/^U\+/, "");
+  const codePoint =
+    /^U\+[0-9A-F]{2,6}$/.test(needle) || /^(?=[0-9A-F]{2,6}$)[A-F]*\d/.test(hex)
+      ? parseInt(hex, 16)
+      : null;
+
+  const exact: UnicodeEntry[] = [];
+  const prefix: UnicodeEntry[] = [];
+  const substring: UnicodeEntry[] = [];
+
+  for (const entry of searchIndex) {
+    const [char, name] = entry;
+    if (char === query || (codePoint !== null && char.codePointAt(0) === codePoint))
+      exact.push(entry);
+    else if (name === needle || name.startsWith(needle)) prefix.push(entry);
+    else if (name.includes(needle)) substring.push(entry);
+  }
+
+  return [...exact, ...prefix, ...substring];
+}
+
+function describe(total: number, query: string) {
+  if (total === 0) return `No symbol matches "${query}"`;
+  const label = `${total} match${total === 1 ? "" : "es"} across all categories`;
+  return total > MAX_RESULTS ? `${label} — showing first ${MAX_RESULTS}` : label;
 }
 
 function getSelectedFromURL(): keyof typeof unicodeRanges {
@@ -84,9 +148,6 @@ function toButton([char, name]: UnicodeEntry) {
   return `<button class="unicode-item" title="${title}" data-char="${value}">${value}</button>`;
 }
 
-function renderUnicode(
-  unicodeContainer: HTMLElement,
-  key: keyof typeof unicodeRanges
-) {
-  unicodeContainer.innerHTML = (unicodeData[key] ?? []).map(toButton).join("");
+function renderEntries(unicodeContainer: HTMLElement, entries: UnicodeEntry[]) {
+  unicodeContainer.innerHTML = entries.map(toButton).join("");
 }
