@@ -943,6 +943,356 @@
     <script type="module" src="/src/main.ts"><\/script>
   </body>
 </html>
+`,"../../regextester/index.html":`<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NLCK842B");
+    <\/script>
+    <!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Free online regex tester with live match highlighting, capture groups, and flags. Runs entirely in your browser."
+    />
+
+    <link rel="canonical" href="https://tools.tarenx.com/regextester/" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="shared/regextester/favicon.svg"
+    />
+
+    <meta property="og:title" content="Regex Tester" />
+    <meta
+      property="og:description"
+      content="Test regular expressions with live match highlighting and capture group details."
+    />
+    <meta property="og:image" content="shared/regextester/og.svg" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regex Tester</title>
+  </head>
+
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NLCK842B"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="app-viewport">
+      <header>
+        <div class="header-brand">
+          <img
+            class="header-logo"
+            src="shared/regextester/logo.svg"
+            alt="Regex Tester Logo"
+          />
+          <span class="header-title">Regex Tester</span>
+        </div>
+        <div class="header-actions">
+          <button
+            id="theme-toggle-btn"
+            class="btn btn-secondary"
+            title="Toggle Theme"
+            aria-label="Toggle Theme"
+          >
+            <!-- Sun Icon (shown in dark mode) -->
+            <svg
+              class="sun-icon"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.72" x2="5.64" y2="18.3"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <!-- Moon Icon (shown in light mode) -->
+            <svg
+              class="moon-icon"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+      <main>
+        <aside class="ad"></aside>
+        <section>
+          <div class="panel pattern-panel">
+            <div class="pattern-row">
+              <span class="pattern-delim">/</span>
+              <input
+                id="pattern-input"
+                type="text"
+                spellcheck="false"
+                autocomplete="off"
+                autocapitalize="off"
+                placeholder="Enter a regular expression"
+                aria-label="Regular expression pattern"
+              />
+              <span class="pattern-delim">/</span>
+              <div class="flag-group" role="group" aria-label="Regex flags">
+                <button class="flag-btn" data-flag="g" title="global — find all matches">g</button>
+                <button class="flag-btn" data-flag="i" title="ignoreCase — case-insensitive">i</button>
+                <button class="flag-btn" data-flag="m" title="multiline — ^ and $ match line starts/ends">m</button>
+                <button class="flag-btn" data-flag="s" title="dotAll — . also matches newlines">s</button>
+                <button class="flag-btn" data-flag="u" title="unicode — full Unicode mode, enables \\p{...}">u</button>
+                <button class="flag-btn" data-flag="y" title="sticky — match only at lastIndex">y</button>
+              </div>
+            </div>
+            <div class="replace-row">
+              <button
+                id="replace-toggle"
+                class="replace-toggle"
+                aria-expanded="false"
+              >
+                <svg
+                  class="chevron"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+                Replace
+              </button>
+              <input
+                id="replace-input"
+                class="hidden"
+                type="text"
+                spellcheck="false"
+                autocomplete="off"
+                autocapitalize="off"
+                placeholder="Replacement — use $1, $&lt;name&gt;, $&amp; for the whole match"
+                aria-label="Replacement pattern"
+              />
+            </div>
+            <div id="pattern-status" class="pattern-status idle"></div>
+          </div>
+          <div class="workspace">
+            <div class="workspace-left">
+              <div class="panel editor-panel">
+                <div class="panel-header">Test string</div>
+                <div id="editor"></div>
+              </div>
+              <div id="result-panel" class="panel result-panel hidden">
+            <div class="panel-header">
+              Replace result
+              <button id="copy-result-btn" class="copy-btn" title="Copy result">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+                Copy
+              </button>
+            </div>
+                <pre id="replace-output" class="replace-output"></pre>
+              </div>
+            </div>
+            <div class="panel matches-panel">
+              <div class="panel-header">
+                Matches <span id="match-count" class="match-count-badge">0</span>
+              </div>
+              <div id="match-list" class="match-list"></div>
+            </div>
+          </div>
+        </section>
+        <aside class="ad"></aside>
+      </main>
+    </div>
+
+    <article class="page-content">
+      <section>
+        <h2>About this tool</h2>
+        <p>
+          This free online regex tester highlights every match in real time as
+          you edit the pattern, flags, or test string.
+          <strong
+            >Your text is never uploaded: matching runs locally in your
+            browser</strong
+          >, so it is safe to paste logs, source code, or any data you would
+          not send to a random server. It uses the JavaScript regex flavor —
+          the same engine that runs in Node.js and every browser.
+        </p>
+      </section>
+
+      <section>
+        <h2>How to use</h2>
+        <ul>
+          <li>
+            <strong>Pattern</strong> — type a regular expression between the
+            slashes; syntax errors are reported immediately below.
+          </li>
+          <li>
+            <strong>Flags</strong> — toggle <code>g</code>, <code>i</code>,
+            <code>m</code>, <code>s</code>, <code>u</code>, and <code>y</code>
+            to change how matching behaves.
+          </li>
+          <li>
+            <strong>Test string</strong> — paste or type text in the editor;
+            matches are highlighted in alternating colors so adjacent matches
+            stay distinguishable.
+          </li>
+          <li>
+            <strong>Match list</strong> — every match is listed with its
+            character range and capture groups (numbered and named); click one
+            to scroll the editor to it.
+          </li>
+          <li>
+            <strong>Replace</strong> — open the Replace row and enter a
+            replacement pattern to preview the substituted text live.
+            <code>$1</code> inserts capture group 1,
+            <code>$&lt;name&gt;</code> a named group, <code>$&amp;</code> the
+            whole match, and <code>$$</code> a literal dollar sign.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Flag reference</h2>
+        <ul>
+          <li>
+            <strong><code>g</code> global</strong> — find all matches instead
+            of stopping at the first one.
+          </li>
+          <li>
+            <strong><code>i</code> ignoreCase</strong> — match letters
+            regardless of case.
+          </li>
+          <li>
+            <strong><code>m</code> multiline</strong> — make <code>^</code> and
+            <code>$</code> match at the start and end of each line, not just
+            the whole string.
+          </li>
+          <li>
+            <strong><code>s</code> dotAll</strong> — let <code>.</code> match
+            newline characters too.
+          </li>
+          <li>
+            <strong><code>u</code> unicode</strong> — treat the pattern as
+            Unicode; surrogate pairs (like emoji) count as one character and
+            <code>\\p{...}</code> property escapes become available.
+          </li>
+          <li>
+            <strong><code>y</code> sticky</strong> — only match starting
+            exactly at the current position, useful when writing tokenizers.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>FAQ</h2>
+        <p>
+          <strong>Is my text uploaded to a server?</strong> No. Matching runs
+          in a Web Worker inside your browser. Nothing leaves your machine.
+        </p>
+        <p>
+          <strong>Which regex flavor does this use?</strong> JavaScript
+          (ECMAScript). It supports lookahead, lookbehind, named capture groups
+          <code>(?&lt;name&gt;...)</code>, and Unicode property escapes, but
+          not PCRE-only features such as recursion or possessive quantifiers.
+        </p>
+        <p>
+          <strong>Why did my pattern get stopped?</strong> Some patterns (like
+          <code>(a+)+$</code> against a long string of a's) trigger
+          catastrophic backtracking and could freeze the page. This tool runs
+          matching in a background thread and stops any pattern that takes
+          longer than half a second.
+        </p>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is my text uploaded to a server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Matching runs in a Web Worker inside your browser. Nothing leaves your machine."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which regex flavor does this use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "JavaScript (ECMAScript). It supports lookahead, lookbehind, named capture groups, and Unicode property escapes, but not PCRE-only features such as recursion or possessive quantifiers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why did my pattern get stopped?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Some patterns trigger catastrophic backtracking and could freeze the page. This tool runs matching in a background thread and stops any pattern that takes longer than half a second."
+            }
+          }
+        ]
+      }
+    <\/script>
+
+    <footer></footer>
+    <script type="module" src="/src/main.ts"><\/script>
+  </body>
+</html>
 `,"../../svgplayground/index.html":`<!doctype html>
 <html lang="en">
   <head>
