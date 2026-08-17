@@ -1,0 +1,22 @@
+<svg width="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Stereogram Generator logo</title>
+<desc>A flat teal square icon with rounded corners showing a white sphere emerging from scattered faint dots, representing a hidden 3D image in a stereogram.</desc>
+<rect x="0" y="0" width="512" height="512" rx="96" fill="#14B8A6"/>
+<circle cx="96" cy="110" r="13" fill="#FFFFFF" fill-opacity="0.3"/>
+<circle cx="170" cy="72" r="10" fill="#FFFFFF" fill-opacity="0.3"/>
+<circle cx="300" cy="84" r="14" fill="#FFFFFF" fill-opacity="0.3"/>
+<circle cx="398" cy="120" r="11" fill="#FFFFFF" fill-opacity="0.3"/>
+<circle cx="86" cy="222" r="10" fill="#FFFFFF" fill-opacity="0.3"/>
+<circle cx="430" cy="230" r="13" fill="#FFFFFF" fill-opacity="0.3"/>
+<circle cx="98" cy="340" r="14" fill="#FFFFFF" fill-opacity="0.3"/>
+<circle cx="410" cy="352" r="10" fill="#FFFFFF" fill-opacity="0.3"/>
+<circle cx="150" cy="422" r="11" fill="#FFFFFF" fill-opacity="0.3"/>
+<circle cx="256" cy="444" r="13" fill="#FFFFFF" fill-opacity="0.3"/>
+<circle cx="352" cy="420" r="14" fill="#FFFFFF" fill-opacity="0.3"/>
+<circle cx="196" cy="128" r="8" fill="#FFFFFF" fill-opacity="0.3"/>
+<clipPath id="sphere-clip">
+  <circle cx="256" cy="252" r="100"/>
+</clipPath>
+<circle cx="256" cy="252" r="100" fill="#FFFFFF"/>
+<circle cx="292" cy="288" r="86" fill="#0D9488" fill-opacity="0.28" clip-path="url(#sphere-clip)"/>
+</svg>
