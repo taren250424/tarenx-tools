@@ -1483,7 +1483,9 @@
           a 3D shape you can only see by relaxing your eyes, popularized in the
           1990s as "magic eye" pictures. Every image is generated fresh and
           hides a random surprise: a sphere, torus, heart, star, pyramid, moon,
-          ripple, or a short word.
+          ripple, a short word — or a one-of-a-kind procedural shape (an
+          organic blob, a flower-like bloom, or rolling hills) that will never
+          appear twice.
           <strong
             >Everything runs locally in your browser</strong
           >
@@ -1522,8 +1524,9 @@
           </li>
           <li>
             <strong>Give up gracefully</strong> — the
-            <strong>Reveal</strong> button shows the hidden depth map, so you
-            know what you were looking for on the next try.
+            <strong>Reveal</strong> button highlights the hidden shape right
+            over the pattern, so you know what you were looking for on the
+            next try.
           </li>
         </ul>
       </section>
