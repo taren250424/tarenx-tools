@@ -21,6 +21,8 @@
     "build:graphify": "pnpm --filter graphify run build",
     "dev:mdtopdf": "pnpm --filter mdtopdf run dev",
     "build:mdtopdf": "pnpm --filter mdtopdf run build",
+    "dev:regextester": "pnpm --filter regextester run dev",
+    "build:regextester": "pnpm --filter regextester run build",
     "preview": "pnpm run build && node scripts/preview.mjs",
     "deploy": "pnpm run build && node scripts/deploy.mjs",
     "sitemap": "node scripts/sitemap.mjs"

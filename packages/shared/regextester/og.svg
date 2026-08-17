@@ -1,0 +1,18 @@
+<svg width="100%" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Regex Tester Open Graph image</title>
+<desc>A wide banner with a violet background, the Regex Tester logo on the left, and the wordmark "Regex Tester" with a tagline on the right.</desc>
+<rect x="0" y="0" width="1200" height="630" fill="#8B5CF6"/>
+<g transform="translate(120, 179)">
+  <rect x="0" y="0" width="272" height="272" rx="51" fill="#FFFFFF" fill-opacity="0.12"/>
+  <g transform="scale(0.53125)">
+    <line x1="168" y1="160" x2="128" y2="352" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round"/>
+    <circle cx="214" cy="336" r="17" fill="#FFFFFF"/>
+    <line x1="295" y1="220" x2="295" y2="304" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round"/>
+    <line x1="259" y1="241" x2="331" y2="283" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round"/>
+    <line x1="331" y1="241" x2="259" y2="283" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round"/>
+    <line x1="384" y1="160" x2="344" y2="352" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round"/>
+  </g>
+</g>
+<text x="470" y="310" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="76" font-weight="700">Regex Tester</text>
+<text x="470" y="380" fill="#FFFFFF" fill-opacity="0.85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34" font-weight="400">Live match highlighting, right in your browser</text>
+</svg>

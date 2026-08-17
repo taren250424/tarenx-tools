@@ -102,6 +102,25 @@ importers:
         specifier: ~5.7.2
         version: 5.7.3
 
+  packages/regextester:
+    dependencies:
+      '@codemirror/state':
+        specifier: ^6.6.0
+        version: 6.6.0
+      '@codemirror/theme-one-dark':
+        specifier: ^6.1.3
+        version: 6.1.3
+      '@codemirror/view':
+        specifier: ^6.43.1
+        version: 6.43.1
+      codemirror:
+        specifier: ^6.0.2
+        version: 6.0.2
+    devDependencies:
+      typescript:
+        specifier: ~5.7.2
+        version: 5.7.3
+
   packages/svgplayground:
     dependencies:
       '@codemirror/lang-html':
