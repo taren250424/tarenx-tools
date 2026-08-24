@@ -1,3 +1,4 @@
+import "../../shared/footer/site-footer.css";
 import "./main.css";
 import { decodeBuffer, parseCsv } from "./csv.ts";
 import type { Analysis, ChartMode, Mapping, Orientation } from "./detect.ts";

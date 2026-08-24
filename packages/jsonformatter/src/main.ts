@@ -1,3 +1,4 @@
+import "../../shared/footer/site-footer.css";
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState, Compartment } from "@codemirror/state";
 import { json } from "@codemirror/lang-json";

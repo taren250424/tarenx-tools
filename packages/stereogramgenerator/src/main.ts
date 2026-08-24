@@ -1,3 +1,4 @@
+import "../../shared/footer/site-footer.css";
 import { makeStereogram, type PatternMode } from "./stereogram.ts";
 import "../../shared/ads/ad-slot.css";
 import "./main.css";

@@ -1,3 +1,4 @@
+import "../../shared/footer/site-footer.css";
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState, Compartment, StateEffect, StateField } from "@codemirror/state";
 import { Decoration, WidgetType, type DecorationSet } from "@codemirror/view";
