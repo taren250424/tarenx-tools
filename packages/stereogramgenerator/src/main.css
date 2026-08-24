@@ -1,0 +1,513 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  /* Default: Dark Theme */
+  --bg-color: #0b0f19;
+  --panel-bg: #111827;
+  --text-color: #f3f4f6;
+  --text-secondary: #9ca3af;
+
+  --border-color: #1f2937;
+  --border-hover: #374151;
+
+  /* Primary Accent from Logo */
+  --accent-color: #14b8a6;
+  --accent-hover: #0d9488;
+
+  /* Buttons */
+  --btn-secondary-bg: #1f2937;
+  --btn-secondary-text: #e5e7eb;
+  --btn-secondary-border: #374151;
+  --btn-secondary-hover: #2d3748;
+
+  /* Layout */
+  --font-sans: "Inter", sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --transition-speed: 0.15s;
+}
+
+html.light {
+  --bg-color: #f8fafc;
+  --panel-bg: #ffffff;
+  --text-color: #0f172a;
+  --text-secondary: #475569;
+
+  --border-color: #e2e8f0;
+  --border-hover: #cbd5e1;
+
+  --btn-secondary-bg: #ffffff;
+  --btn-secondary-text: #334155;
+  --btn-secondary-border: #cbd5e1;
+  --btn-secondary-hover: #f1f5f9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition:
+    background-color var(--transition-speed) ease,
+    color var(--transition-speed) ease;
+}
+
+.app-viewport {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------- header */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2.5rem;
+  background-color: var(--panel-bg);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: var(--shadow-sm);
+  transition:
+    background-color var(--transition-speed) ease,
+    border-color var(--transition-speed) ease;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.header-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text-color);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ------------------------------------------------------------- layout */
+
+main {
+  display: grid;
+  grid-template-columns:
+    var(--ad-slot-width) minmax(0, 900px)
+    var(--ad-slot-width);
+  justify-content: center;
+  flex: 1;
+  padding: 2.5rem 2rem;
+  gap: 2.5rem;
+}
+
+@media (max-width: 1200px) {
+  main {
+    grid-template-columns: minmax(0, 900px);
+  }
+}
+
+@media (max-width: 640px) {
+  main {
+    padding: 1.5rem 1rem;
+  }
+
+  header {
+    padding: 1rem 1.25rem;
+  }
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+}
+
+/* ------------------------------------------------------------- buttons */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border-color: var(--btn-secondary-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--btn-secondary-hover);
+}
+
+html.light .sun-icon {
+  display: none;
+}
+
+html:not(.light) .moon-icon {
+  display: none;
+}
+
+/* ------------------------------------------------------------- tool */
+
+.tool-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.modes {
+  display: flex;
+  gap: 2px;
+}
+
+.modes button {
+  font: inherit;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  background: none;
+  border: 0;
+  padding: 4px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modes button:hover {
+  color: var(--text-color);
+}
+
+.modes button.on {
+  color: var(--text-color);
+  background: var(--border-color);
+}
+
+.stage {
+  position: relative;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--panel-bg);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#art {
+  opacity: 1;
+  transition: opacity 0.28s ease;
+}
+
+.stage.busy #art {
+  opacity: 0.25;
+}
+
+#answer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.stage.revealed #answer {
+  opacity: 1;
+}
+
+.badge {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f4f4f6;
+  background: rgba(17, 17, 20, 0.72);
+  padding: 4px 10px;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.stage.revealed .badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stage-expand {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 0;
+  color: #f4f4f6;
+  background: rgba(17, 17, 20, 0.55);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity var(--transition-speed) ease,
+    background var(--transition-speed) ease;
+}
+
+.stage:hover .stage-expand,
+.stage-expand:focus-visible {
+  opacity: 1;
+}
+
+.stage-expand:hover {
+  background: rgba(17, 17, 20, 0.8);
+}
+
+.stage.busy .stage-expand {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (hover: none) {
+  .stage-expand {
+    opacity: 1;
+  }
+}
+
+/* loading veil */
+.veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+.stage.busy .veil {
+  opacity: 1;
+}
+
+.spinner {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2.5px solid var(--border-color);
+  border-top-color: var(--accent-color);
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.meta {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.controls button {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 550;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: none;
+  color: var(--text-color);
+  padding: 11px 0;
+  cursor: pointer;
+  transition:
+    transform 0.06s ease,
+    background var(--transition-speed) ease;
+}
+
+.controls button:active {
+  transform: scale(0.985);
+}
+
+.controls button:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.controls .primary {
+  flex: 2.2;
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #ffffff;
+}
+
+.controls .primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+#reveal {
+  flex: 1;
+}
+
+#reveal:hover {
+  background: var(--btn-secondary-hover);
+}
+
+.controls button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.tip {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.tip em {
+  font-style: normal;
+  color: var(--text-color);
+}
+
+/* fullscreen viewer */
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2vmin;
+  background: rgba(8, 10, 14, 0.96);
+  cursor: zoom-out;
+}
+
+.viewer[hidden] {
+  display: none;
+}
+
+.viewer img {
+  /* fill the screen while keeping the canvas's 880:560 aspect ratio */
+  width: min(96vw, calc(96vh * 11 / 7));
+  height: auto;
+  border-radius: 4px;
+}
+
+body.viewer-open {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #art,
+  #answer,
+  .badge,
+  .veil {
+    transition: none;
+  }
+  .spinner {
+    animation-duration: 1.4s;
+  }
+}
+
+/* ------------------------------------------------------------- page content */
+
+.page-content {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.page-content h2 {
+  color: var(--text-color);
+  font-size: 1.15rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.page-content ul {
+  padding-left: 1.25rem;
+}
+
+.page-content li {
+  margin-bottom: 0.4rem;
+}
+
+.page-content p {
+  margin-bottom: 0.6rem;
+}
+
+.page-content strong {
+  color: var(--text-color);
+}
+
+.page-content em {
+  font-style: normal;
+  color: var(--text-color);
+}

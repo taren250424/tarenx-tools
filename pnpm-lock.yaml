@@ -121,6 +121,12 @@ importers:
         specifier: ~5.7.2
         version: 5.7.3
 
+  packages/stereogramgenerator:
+    devDependencies:
+      typescript:
+        specifier: ~5.7.2
+        version: 5.7.3
+
   packages/svgplayground:
     dependencies:
       '@codemirror/lang-html':

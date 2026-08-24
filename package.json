@@ -23,6 +23,8 @@
     "build:mdtopdf": "pnpm --filter mdtopdf run build",
     "dev:regextester": "pnpm --filter regextester run dev",
     "build:regextester": "pnpm --filter regextester run build",
+    "dev:stereogramgenerator": "pnpm --filter stereogramgenerator run dev",
+    "build:stereogramgenerator": "pnpm --filter stereogramgenerator run build",
     "preview": "pnpm run build && node scripts/preview.mjs",
     "deploy": "pnpm run build && node scripts/deploy.mjs",
     "sitemap": "node scripts/sitemap.mjs"

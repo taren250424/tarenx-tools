@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NLCK842B");
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Free online autostereogram generator. Every image hides a random 3D shape — relax your eyes and let it emerge. Runs entirely in your browser."
+    />
+
+    <link rel="canonical" href="https://tools.tarenx.com/stereogramgenerator/" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="shared/stereogramgenerator/favicon.svg"
+    />
+
+    <meta property="og:title" content="Stereogram Generator" />
+    <meta
+      property="og:description"
+      content="Generate hidden-3D stereogram images in your browser. Relax your eyes and let the shape emerge."
+    />
+    <meta property="og:image" content="shared/stereogramgenerator/og.svg" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stereogram Generator</title>
+  </head>
+
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NLCK842B"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="app-viewport">
+      <header>
+        <div class="header-brand">
+          <img
+            class="header-logo"
+            src="shared/stereogramgenerator/logo.svg"
+            alt="Stereogram Generator Logo"
+          />
+          <span class="header-title">Stereogram Generator</span>
+        </div>
+        <div class="header-actions">
+          <button
+            id="theme-toggle-btn"
+            class="btn btn-secondary"
+            title="Toggle Theme"
+            aria-label="Toggle Theme"
+          >
+            <!-- Sun Icon (shown in dark mode) -->
+            <svg
+              class="sun-icon"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.72" x2="5.64" y2="18.3"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <!-- Moon Icon (shown in light mode) -->
+            <svg
+              class="moon-icon"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+      <main>
+        <aside class="ad"></aside>
+        <section>
+          <div class="tool-bar">
+            <nav class="modes" id="modes" aria-label="Pattern mode">
+              <button data-mode="auto" class="on" aria-pressed="true">
+                Auto
+              </button>
+              <button data-mode="dots" aria-pressed="false">Dots</button>
+              <button data-mode="texture" aria-pressed="false">Texture</button>
+            </nav>
+            <p class="meta" id="meta">&nbsp;</p>
+          </div>
+
+          <figure class="stage" id="stage">
+            <canvas id="art" width="880" height="560"></canvas>
+            <canvas id="answer" width="880" height="560" aria-hidden="true"></canvas>
+            <figcaption class="badge" id="badge"></figcaption>
+            <button
+              id="expand"
+              class="stage-expand"
+              title="View fullscreen"
+              aria-label="View fullscreen"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
+                ></path>
+              </svg>
+            </button>
+            <div class="veil" id="veil" aria-hidden="true">
+              <span class="spinner"></span>
+            </div>
+          </figure>
+
+          <div class="controls">
+            <button id="next" class="primary">Next image</button>
+            <button id="reveal">Reveal</button>
+          </div>
+
+          <p class="tip">
+            Relax your eyes and focus <em>behind</em> the screen, as if looking
+            through it. When the pattern doubles and locks in, a 3D shape will
+            emerge. If it won't come, bring your nose close to the screen and
+            pull back slowly.
+          </p>
+        </section>
+        <aside class="ad"></aside>
+      </main>
+    </div>
+
+    <div
+      id="viewer"
+      class="viewer"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Fullscreen stereogram"
+      hidden
+    >
+      <img id="viewer-img" alt="Generated stereogram" />
+    </div>
+
+    <article class="page-content">
+      <section>
+        <h2>About this tool</h2>
+        <p>
+          This free online stereogram generator creates
+          <strong>autostereograms</strong> — flat, repeating patterns that hide
+          a 3D shape you can only see by relaxing your eyes, popularized in the
+          1990s as "magic eye" pictures. Every image is generated fresh and
+          hides a random surprise: a sphere, torus, heart, star, pyramid, moon,
+          ripple, a short word — or a one-of-a-kind procedural shape (an
+          organic blob, a flower-like bloom, or rolling hills) that will never
+          appear twice.
+          <strong
+            >Everything runs locally in your browser</strong
+          >
+          — nothing is uploaded, and every click of "Next image" produces a
+          one-of-a-kind picture.
+        </p>
+      </section>
+
+      <section>
+        <h2>How to see the hidden image</h2>
+        <ul>
+          <li>
+            <strong>Relax your focus</strong> — look <em>through</em> the
+            screen, as if focusing on a point far behind it. Your eyes should
+            feel like they are day-dreaming, not reading.
+          </li>
+          <li>
+            <strong>Let the pattern double</strong> — when your focus drifts
+            behind the screen, the repeating pattern appears to split and
+            overlap. Hold that state without snapping back.
+          </li>
+          <li>
+            <strong>Wait for the lock</strong> — after a few seconds the
+            overlapped pattern fuses and the hidden shape pops out in 3D. Once
+            it locks in, you can look around the image freely.
+          </li>
+          <li>
+            <strong>The nose trick</strong> — if nothing appears, bring your
+            nose almost to the screen (the pattern blurs completely), then pull
+            back very slowly without refocusing.
+          </li>
+          <li>
+            <strong>Go fullscreen</strong> — the expand button on the image
+            shows it alone on a dark screen, with nothing else to distract
+            your focus. Click anywhere or press Esc to come back.
+          </li>
+          <li>
+            <strong>Give up gracefully</strong> — the
+            <strong>Reveal</strong> button highlights the hidden shape right
+            over the pattern, so you know what you were looking for on the
+            next try.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Pattern modes</h2>
+        <ul>
+          <li>
+            <strong>Dots</strong> — the classic random-dot stereogram (SIRDS):
+            pure colored noise with no visible structure until the 3D image
+            snaps in.
+          </li>
+          <li>
+            <strong>Texture</strong> — procedurally drawn tiles (confetti,
+            blobs, shards, waves) that repeat across the image, in the style of
+            the printed stereogram posters.
+          </li>
+          <li>
+            <strong>Auto</strong> — picks one of the two at random for each new
+            image.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>FAQ</h2>
+        <p>
+          <strong>Why can't I see anything?</strong> Seeing a stereogram is a
+          learned skill — most people need a few minutes on their first try.
+          Keep the screen at arm's length, make sure the image is not tilted,
+          and try the nose trick above. It gets much easier with practice.
+        </p>
+        <p>
+          <strong>How does it work?</strong> Each pixel copies a pixel a fixed
+          distance to its left, and that distance shrinks slightly where the
+          hidden surface is closer. When each of your eyes locks onto a
+          different repeat of the pattern, your brain reads the tiny spacing
+          differences as depth.
+        </p>
+        <p>
+          <strong>Is it bad for my eyes?</strong> No. Viewing a stereogram is
+          just a relaxed divergence of the eyes, similar to gazing into the
+          distance. If your eyes feel strained, take a break.
+        </p>
+        <p>
+          <strong>Can I save an image?</strong> Yes — right-click (or
+          long-press on mobile) the image and choose "Save image as". The
+          hidden shape survives saving and sharing.
+        </p>
+      </section>
+    </article>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why can't I see anything in the stereogram?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Seeing a stereogram is a learned skill — most people need a few minutes on their first try. Keep the screen at arm's length, relax your focus as if looking through the screen, or bring your nose close to the screen and pull back slowly. It gets much easier with practice."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does an autostereogram work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Each pixel copies a pixel a fixed distance to its left, and that distance shrinks slightly where the hidden surface is closer. When each eye locks onto a different repeat of the pattern, the brain reads the spacing differences as depth."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is viewing stereograms bad for my eyes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Viewing a stereogram is just a relaxed divergence of the eyes, similar to gazing into the distance. If your eyes feel strained, take a break."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I save a generated stereogram image?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — right-click (or long-press on mobile) the image and choose Save image as. The hidden shape survives saving and sharing."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <footer></footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
