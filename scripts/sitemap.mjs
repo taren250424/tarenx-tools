@@ -11,7 +11,7 @@ const hubDistDir = path.join(packagesDir, "hub", "dist");
 
 async function generateSitemap() {
   const baseUrl = "https://tools.tarenx.com";
-  const urls = [`${baseUrl}/`];
+  const urls = [`${baseUrl}/`, `${baseUrl}/privacy/`];
 
   const entries = await fs.readdir(packagesDir, { withFileTypes: true });
   for (const entry of entries) {
