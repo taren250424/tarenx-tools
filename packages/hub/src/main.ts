@@ -1,3 +1,4 @@
+import "../../shared/footer/site-footer.css";
 import "./style.css";
 
 const htmlFiles = import.meta.glob("../../*/index.html", {
