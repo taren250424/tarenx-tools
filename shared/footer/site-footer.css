@@ -1,0 +1,26 @@
+/*
+ * Shared styles for the site footer on every tool page.
+ *
+ * Colors are derived from currentColor/opacity so the footer follows each
+ * tool's own theme (light or dark) without depending on app CSS variables.
+ *
+ * Usage
+ *   1. Import from the app entry: `import "../../shared/footer/site-footer.css";`
+ *   2. Place <footer> after the app viewport:
+ *      <footer><p>Part of <a href="/">Tarenx Tools</a> · … · <a href="/privacy/">Privacy</a></p></footer>
+ *
+ * On 100vh apps the footer sits below the fold, so it never costs
+ * workspace height; on scrolling pages it lands after the content.
+ */
+
+body > footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.85rem;
+  opacity: 0.75;
+  border-top: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+body > footer a {
+  color: inherit;
+}
