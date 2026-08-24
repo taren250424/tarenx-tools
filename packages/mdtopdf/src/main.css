@@ -136,9 +136,26 @@ header {
 main {
   flex: 1;
   min-height: 0;
-  display: flex;
+  display: grid;
+  grid-template-columns:
+    var(--ad-slot-width) minmax(0, 1400px)
+    var(--ad-slot-width);
+  justify-content: center;
   gap: 1rem;
   padding: 1rem 1.5rem;
+}
+
+@media (max-width: 1200px) {
+  main {
+    grid-template-columns: minmax(0, 1400px);
+  }
+}
+
+.workspace {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  gap: 1rem;
 }
 
 .panel {
@@ -183,7 +200,7 @@ main {
 }
 
 @media (max-width: 800px) {
-  main {
+  .workspace {
     flex-direction: column;
   }
 }

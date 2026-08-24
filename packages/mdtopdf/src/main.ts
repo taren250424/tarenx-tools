@@ -1,3 +1,4 @@
+import "../../shared/ads/ad-slot.css";
 import "../../shared/footer/site-footer.css";
 import "./main.css";
 import { marked } from "marked";
