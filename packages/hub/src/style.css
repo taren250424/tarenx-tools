@@ -1,3 +1,35 @@
+:root {
+  /* Default: Light Theme. Dark is opt-in via the .dark class, which the
+     pre-paint script in index.html applies before the first paint. */
+  color-scheme: light;
+
+  --bg-color: #ffffff;
+  --text-color: #0f172a;
+
+  --card-border: #dddddd;
+  --card-hover-bg: #e2e1e0;
+
+  --btn-bg: #ffffff;
+  --btn-text: #334155;
+  --btn-border: #cbd5e1;
+  --btn-hover-bg: #f1f5f9;
+}
+
+html.dark {
+  color-scheme: dark;
+
+  --bg-color: #0b0f19;
+  --text-color: #f3f4f6;
+
+  --card-border: #1f2937;
+  --card-hover-bg: #1f2937;
+
+  --btn-bg: #1f2937;
+  --btn-text: #e5e7eb;
+  --btn-border: #374151;
+  --btn-hover-bg: #2d3748;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -6,12 +38,52 @@
 body {
   display: grid;
   grid-template-rows: 200px 1fr 300px;
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 header {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* The title stays optically centred, so the toggle is taken out of flow
+     rather than balanced with a spacer on the opposite side. */
+  position: relative;
+}
+
+#theme-toggle-btn {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: 1px solid var(--btn-border);
+}
+
+#theme-toggle-btn:hover {
+  background-color: var(--btn-hover-bg);
+}
+
+#theme-toggle-btn svg {
+  display: block;
+}
+
+/* Scoped to the button so an id-level rule on its icons cannot out-specify
+   these and leave both the sun and the moon showing at once. */
+html:not(.dark) #theme-toggle-btn .sun-icon,
+html.dark #theme-toggle-btn .moon-icon {
+  display: none;
 }
 
 main {
@@ -30,7 +102,7 @@ main a {
   gap: 8px;
   padding: 16px;
 
-  border: 1px solid #ddd;
+  border: 1px solid var(--card-border);
 
   text-decoration: none;
   color: inherit;
@@ -38,7 +110,7 @@ main a {
   cursor: pointer;
 
   &:hover {
-    background-color: #e2e1e0;
+    background-color: var(--card-hover-bg);
   }
 }
 
