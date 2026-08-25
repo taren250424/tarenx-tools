@@ -22,6 +22,19 @@ const fileInput = $<HTMLInputElement>("file-input");
 const openBtn = $<HTMLButtonElement>("open-btn");
 const downloadBtn = $<HTMLButtonElement>("download-btn");
 const dropOverlay = $("drop-overlay");
+const themeToggleBtn = $<HTMLButtonElement>("theme-toggle-btn");
+
+const THEME_KEY = "mdtopdf-theme";
+
+// The pre-paint script in index.html already resolved the theme and applied
+// the class, so read it back rather than resolving it a second time here.
+let isDarkMode = document.documentElement.classList.contains("dark");
+
+themeToggleBtn.addEventListener("click", () => {
+  isDarkMode = !isDarkMode;
+  document.documentElement.classList.toggle("dark", isDarkMode);
+  localStorage.setItem(THEME_KEY, isDarkMode ? "dark" : "light");
+});
 
 // Name of the last opened file, used as the default PDF filename.
 let openedFileName = "";

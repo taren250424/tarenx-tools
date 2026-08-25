@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap");
 
 :root {
+  /* Default: Light Theme. Dark is opt-in via the .dark class, which the
+     pre-paint script in index.html applies before the first paint. */
+  color-scheme: light;
+
   --bg-color: #f8fafc;
   --panel-bg: #ffffff;
   --text-color: #0f172a;
@@ -24,6 +28,51 @@
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --transition-speed: 0.15s;
+
+  --overlay-bg: rgba(248, 250, 252, 0.9);
+  --code-bg: #f1f5f9;
+  --btn-primary-text: #ffffff;
+
+  /*
+   * The preview IS the printed page: html2pdf captures it onto a white
+   * canvas. These stay put in both themes — letting them follow
+   * --text-color into the dark palette would put near-white body text on a
+   * white PDF. The panel framing the sheet still goes dark.
+   */
+  --paper-bg: #ffffff;
+  --paper-text: #0f172a;
+  --paper-muted: #475569;
+  --paper-border: #e2e8f0;
+  --paper-rule: #cbd5e1;
+  --paper-link: #dc2626;
+  --paper-code-bg: #f1f5f9;
+  --paper-th-bg: #f8fafc;
+}
+
+html.dark {
+  color-scheme: dark;
+
+  --bg-color: #0b0f19;
+  --panel-bg: #111827;
+  --text-color: #f3f4f6;
+  --text-secondary: #9ca3af;
+
+  --border-color: #1f2937;
+  --border-hover: #374151;
+
+  --accent-color: #f87171;
+  --accent-hover: #ef4444;
+  --accent-light: rgba(248, 113, 113, 0.16);
+
+  --btn-secondary-bg: #1f2937;
+  --btn-secondary-text: #e5e7eb;
+  --btn-secondary-border: #374151;
+  --btn-secondary-hover: #2d3748;
+
+  --overlay-bg: rgba(11, 15, 25, 0.9);
+  --code-bg: #1f2937;
+  /* The dark accent is a light salmon, so the label goes dark instead. */
+  --btn-primary-text: #0b0f19;
 }
 
 * {
@@ -114,7 +163,7 @@ header {
 
 .btn-primary {
   background-color: var(--accent-color);
-  color: #ffffff;
+  color: var(--btn-primary-text);
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -129,6 +178,17 @@ header {
 
 .btn-secondary:hover:not(:disabled) {
   background-color: var(--btn-secondary-hover);
+}
+
+#theme-toggle-btn svg {
+  display: block;
+}
+
+/* Scoped to the button so an id-level rule on its icons cannot out-specify
+   these and leave both the sun and the moon showing at once. */
+html:not(.dark) #theme-toggle-btn .sun-icon,
+html.dark #theme-toggle-btn .moon-icon {
+  display: none;
 }
 
 /* ------------------------------------------------------------- layout */
@@ -197,6 +257,8 @@ main {
   flex: 1;
   overflow: auto;
   padding: 1.5rem 2rem;
+  background-color: var(--paper-bg);
+  color: var(--paper-text);
 }
 
 @media (max-width: 800px) {
@@ -217,7 +279,7 @@ main {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--accent-color);
-  background-color: rgba(248, 250, 252, 0.9);
+  background-color: var(--overlay-bg);
   border: 3px dashed var(--accent-color);
   pointer-events: none;
 }
@@ -232,7 +294,8 @@ main {
 .markdown-body {
   font-size: 0.95rem;
   line-height: 1.7;
-  color: var(--text-color);
+  color: var(--paper-text);
+  background-color: var(--paper-bg);
   word-wrap: break-word;
 }
 
@@ -254,13 +317,13 @@ main {
 .markdown-body h1 {
   font-size: 1.75em;
   padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--paper-border);
 }
 
 .markdown-body h2 {
   font-size: 1.4em;
   padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--paper-border);
 }
 
 .markdown-body h3 {
@@ -286,13 +349,13 @@ main {
 }
 
 .markdown-body a {
-  color: var(--accent-color);
+  color: var(--paper-link);
 }
 
 .markdown-body blockquote {
   padding: 0.25em 1em;
-  color: var(--text-secondary);
-  border-left: 4px solid var(--border-hover);
+  color: var(--paper-muted);
+  border-left: 4px solid var(--paper-rule);
 }
 
 .markdown-body code {
@@ -300,13 +363,13 @@ main {
   font-size: 0.86em;
   padding: 0.15em 0.4em;
   border-radius: 5px;
-  background-color: #f1f5f9;
+  background-color: var(--paper-code-bg);
 }
 
 .markdown-body pre {
   padding: 1em;
   border-radius: 8px;
-  background-color: #f1f5f9;
+  background-color: var(--paper-code-bg);
   overflow-x: auto;
 }
 
@@ -326,11 +389,11 @@ main {
 .markdown-body th,
 .markdown-body td {
   padding: 0.45em 0.9em;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--paper-border);
 }
 
 .markdown-body th {
-  background-color: #f8fafc;
+  background-color: var(--paper-th-bg);
   font-weight: 600;
 }
 
@@ -340,7 +403,7 @@ main {
 
 .markdown-body hr {
   border: none;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--paper-border);
   margin: 1.5em 0;
 }
 
