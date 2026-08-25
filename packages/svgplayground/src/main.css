@@ -178,7 +178,9 @@ main > section {
 .page-content {
   max-width: 760px;
   margin: 0 auto;
-  padding: 1rem 1.5rem 4rem;
+  /* Total separation from the tool above is a constant 56px: this padding
+     plus the bottom padding of <main>. Keep the sum at 56px if either moves. */
+  padding: 1.5rem 1.5rem 4rem;
   display: flex;
   flex-direction: column;
   gap: 1.75rem;

@@ -16,7 +16,9 @@ body {
   max-width: 760px;
   width: 100%;
   margin: 0 auto;
-  padding: 3rem 1.5rem 1rem;
+  /* Total separation from the tool above is a constant 56px: this padding
+     plus the bottom padding of <main>. Keep the sum at 56px if either moves. */
+  padding: 3.5rem 1.5rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 1.75rem;

@@ -87,6 +87,12 @@ body {
   flex-direction: column;
 }
 
+/* Before a file is loaded there is no workspace to stretch, so a fixed viewport
+   height would only park the page content a screen below the dropzone. */
+.app-viewport:has(#empty-state:not(.hidden)) {
+  height: auto;
+}
+
 /* ------------------------------------------------------------- header */
 
 header {
@@ -607,7 +613,9 @@ main {
 .page-content {
   max-width: 760px;
   margin: 0 auto;
-  padding: 3rem 1.5rem 4rem;
+  /* Total separation from the tool above is a constant 56px: this padding
+     plus the bottom padding of <main>. Keep the sum at 56px if either moves. */
+  padding: 2.5rem 1.5rem 4rem;
   display: flex;
   flex-direction: column;
   gap: 1.75rem;

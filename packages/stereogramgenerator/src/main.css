@@ -61,8 +61,10 @@ body {
     color var(--transition-speed) ease;
 }
 
+/* The stage is a fixed-aspect canvas, so the tool cannot stretch to fill a
+   tall screen. Let it size to its content and the page copy follows right
+   below it instead of after a screenful of dead space. */
 .app-viewport {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -474,6 +476,8 @@ body.viewer-open {
 .page-content {
   max-width: 760px;
   margin: 0 auto;
+  /* Total separation from the tool above is a constant 56px: this padding
+     plus the bottom padding of <main>. Keep the sum at 56px if either moves. */
   padding: 1rem 1.5rem 4rem;
   display: flex;
   flex-direction: column;
