@@ -1,5 +1,42 @@
 header {
-	display: flex;	
+	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	// The title stays optically centred, so the toggle is taken out of flow
+	// rather than balanced with a spacer on the opposite side.
+	position: relative;
+}
+
+.icon-btn {
+	position: absolute;
+	right: 24px;
+	top: 24px;
+
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	padding: 0.6rem;
+	border-radius: 8px;
+	cursor: pointer;
+
+	background-color: var(--btn-secondary-bg);
+	color: var(--btn-secondary-text);
+	border: 1px solid var(--btn-secondary-border);
+
+	svg {
+		display: block;
+	}
+
+	&:hover {
+		background-color: var(--btn-secondary-hover);
+	}
+}
+
+// Scoped to the button so an id-level rule on its icons cannot out-specify
+// these and leave both the sun and the moon showing at once.
+html:not(.dark) #theme-toggle-btn .sun-icon,
+html.dark #theme-toggle-btn .moon-icon {
+	display: none;
 }

@@ -1,5 +1,58 @@
 @use "./variables" as *;
 
+:root {
+  /* Default: Light Theme. Dark is opt-in via the .dark class, which the
+     pre-paint script in index.html applies before the first paint.
+     Declared as custom properties rather than Sass variables because the
+     palette has to be swappable at runtime, which  and friends
+     cannot be — they are gone by the time the stylesheet ships. */
+  color-scheme: light;
+
+  --bg-color: #ffffff;
+  --text-color: #{$gray_6};
+  --text-secondary: #{$gray_5};
+  --text-muted: #666666;
+
+  --rule-color: #{$gray_2};
+  --border-color: #e0e0e0;
+  --border-subtle: #f0f0f0;
+  --border-strong: #cccccc;
+  --border-accent: #333333;
+
+  --tile-bg: #ffffff;
+  --tile-border: #dddddd;
+  --hover-bg: rgb(226, 225, 224);
+
+  --btn-secondary-bg: #ffffff;
+  --btn-secondary-text: #334155;
+  --btn-secondary-border: #cbd5e1;
+  --btn-secondary-hover: #f1f5f9;
+}
+
+html.dark {
+  color-scheme: dark;
+
+  --bg-color: #0b0f19;
+  --text-color: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --text-muted: #9ca3af;
+
+  --rule-color: #1f2937;
+  --border-color: #1f2937;
+  --border-subtle: #172033;
+  --border-strong: #374151;
+  --border-accent: #e5e7eb;
+
+  --tile-bg: #111827;
+  --tile-border: #1f2937;
+  --hover-bg: #1f2937;
+
+  --btn-secondary-bg: #1f2937;
+  --btn-secondary-text: #e5e7eb;
+  --btn-secondary-border: #374151;
+  --btn-secondary-hover: #2d3748;
+}
+
 * {
   font-family: "Arial", sans-serif;
   margin: 0;
@@ -10,6 +63,9 @@
 body {
   display: grid;
   grid-template-rows: 300px 700px auto 300px;
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .page-content {
@@ -22,14 +78,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
-  color: $gray_5;
+  color: var(--text-secondary);
   line-height: 1.7;
   font-size: 0.95rem;
 
   h2 {
-    color: $gray_6;
+    color: var(--text-color);
     font-size: 1.15rem;
-    border-bottom: 1px solid $gray_2;
+    border-bottom: 1px solid var(--rule-color);
     padding-bottom: 0.4rem;
     margin-bottom: 0.6rem;
   }
@@ -47,6 +103,6 @@ body {
   }
 
   strong {
-    color: $gray_6;
+    color: var(--text-color);
   }
 }
