@@ -58,11 +58,6 @@
         var stored = null;
         try {
           stored = localStorage.getItem(KEY);
-          if (stored === null) {
-            // Adopt the key three tools shared before each got its own.
-            stored = localStorage.getItem("theme");
-            if (stored !== null) localStorage.setItem(KEY, stored);
-          }
         } catch (e) {
           /* Storage can be blocked; fall through to the OS preference. */
         }
