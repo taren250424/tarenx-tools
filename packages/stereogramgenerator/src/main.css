@@ -185,8 +185,8 @@ section {
   background-color: var(--btn-secondary-hover);
 }
 
-/* Scoped to the button so the id-level  rule above
-   cannot out-specify them and leave both icons visible. */
+/* Scoped to the button so an id-level rule on its icons cannot out-specify
+   these and leave both the sun and the moon showing at once. */
 html:not(.dark) #theme-toggle-btn .sun-icon,
 html.dark #theme-toggle-btn .moon-icon {
   display: none;
