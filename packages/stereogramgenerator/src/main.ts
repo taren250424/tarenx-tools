@@ -5,29 +5,21 @@ import "./main.css";
 
 // ------------------------------------------------------------- theme
 
+const THEME_KEY = "stereogramgenerator-theme";
+
 function applyTheme(isDark: boolean) {
-  if (isDark) {
-    document.documentElement.classList.remove("light");
-  } else {
-    document.documentElement.classList.add("light");
-  }
+  document.documentElement.classList.toggle("dark", isDark);
 }
 
-function getInitialTheme(): boolean {
-  const stored = localStorage.getItem("theme");
-  if (stored === "light") return false;
-  if (stored === "dark") return true;
-  return !window.matchMedia("(prefers-color-scheme: light)").matches;
-}
-
-let isDarkMode = getInitialTheme();
-applyTheme(isDarkMode);
+// The pre-paint script in index.html already resolved the theme and applied
+// the class, so read it back rather than resolving it a second time here.
+let isDarkMode = document.documentElement.classList.contains("dark");
 
 const themeToggleBtn = document.getElementById("theme-toggle-btn")!;
 themeToggleBtn.addEventListener("click", () => {
   isDarkMode = !isDarkMode;
   applyTheme(isDarkMode);
-  localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+  localStorage.setItem(THEME_KEY, isDarkMode ? "dark" : "light");
 });
 
 // ------------------------------------------------------------- app

@@ -539,9 +539,8 @@ function bindEvents(): void {
 
   // Theme toggle, chart re-rendered to pick up the new CSS variables.
   const THEME_KEY = "graphify-theme";
-  // Light is the default (:root); dark is opt-in via the .dark class.
-  if (localStorage.getItem(THEME_KEY) === "dark")
-    document.documentElement.classList.add("dark");
+  // The pre-paint script in index.html already resolved the theme and applied
+  // the class, so nothing to do here beyond recording the visitor's choice.
   $("theme-toggle-btn").addEventListener("click", () => {
     const dark = document.documentElement.classList.toggle("dark");
     localStorage.setItem(THEME_KEY, dark ? "dark" : "light");

@@ -42,10 +42,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Graphify</title>
 
-    <!-- Apply saved dark theme before first paint to avoid a flash. Default: light. -->
+    <!--
+      Resolve the theme before the first paint so the page never flashes.
+      Light is the default; the OS preference only applies until the visitor
+      makes a choice on this tool. Kept inline and dependency-free because
+      anything deferred to the bundle would paint the wrong theme first.
+    -->
     <script>
-      if (localStorage.getItem("graphify-theme") === "dark")
-        document.documentElement.classList.add("dark");
+      (function () {
+        var KEY = "graphify-theme";
+        var stored = null;
+        try {
+          stored = localStorage.getItem(KEY);
+        } catch (e) {
+          /* Storage can be blocked; fall through to the OS preference. */
+        }
+        var dark = stored
+          ? stored === "dark"
+          : matchMedia("(prefers-color-scheme: dark)").matches;
+        if (dark) document.documentElement.classList.add("dark");
+      })();
     </script>
   </head>
 

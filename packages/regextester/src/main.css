@@ -1,15 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap");
 
 :root {
-  /* Default: Dark Theme */
-  --bg-color: #0b0f19;
-  --panel-bg: #111827;
-  --editor-bg: #0f172a;
-  --text-color: #f3f4f6;
-  --text-secondary: #9ca3af;
+  /* Default: Light Theme. Dark is opt-in via the .dark class, which the
+     pre-paint script in index.html applies before the first paint. */
+  color-scheme: light;
 
-  --border-color: #1f2937;
-  --border-hover: #374151;
+  --bg-color: #f8fafc;
+  --panel-bg: #ffffff;
+  --editor-bg: #ffffff;
+  --text-color: #0f172a;
+  --text-secondary: #475569;
+
+  --border-color: #e2e8f0;
+  --border-hover: #cbd5e1;
 
   /* Primary Accent from Logo */
   --accent-color: #8b5cf6;
@@ -17,19 +20,19 @@
   --accent-light: rgba(139, 92, 246, 0.1);
 
   /* Buttons */
-  --btn-secondary-bg: #1f2937;
-  --btn-secondary-text: #e5e7eb;
-  --btn-secondary-border: #374151;
-  --btn-secondary-hover: #2d3748;
+  --btn-secondary-bg: #ffffff;
+  --btn-secondary-text: #334155;
+  --btn-secondary-border: #cbd5e1;
+  --btn-secondary-hover: #f1f5f9;
 
   /* Status Messages */
-  --success-color: #10b981;
-  --warn-color: #f59e0b;
-  --error-color: #ef4444;
+  --success-color: #059669;
+  --warn-color: #d97706;
+  --error-color: #dc2626;
 
   /* Match highlights */
-  --match-a-bg: rgba(139, 92, 246, 0.35);
-  --match-b-bg: rgba(16, 185, 129, 0.3);
+  --match-a-bg: rgba(139, 92, 246, 0.25);
+  --match-b-bg: rgba(16, 185, 129, 0.25);
   --match-selected-bg: rgba(245, 158, 11, 0.45);
 
   /* Layout */
@@ -43,28 +46,29 @@
   --transition-speed: 0.15s;
 }
 
-html.light {
-  --bg-color: #f8fafc;
-  --panel-bg: #ffffff;
-  --editor-bg: #ffffff;
-  --text-color: #0f172a;
-  --text-secondary: #475569;
+html.dark {
+  color-scheme: dark;
 
-  --border-color: #e2e8f0;
-  --border-hover: #cbd5e1;
+  --bg-color: #0b0f19;
+  --panel-bg: #111827;
+  --editor-bg: #0f172a;
+  --text-color: #f3f4f6;
+  --text-secondary: #9ca3af;
 
-  --btn-secondary-bg: #ffffff;
-  --btn-secondary-text: #334155;
-  --btn-secondary-border: #cbd5e1;
-  --btn-secondary-hover: #f1f5f9;
+  --border-color: #1f2937;
+  --border-hover: #374151;
 
-  --success-color: #059669;
-  --warn-color: #d97706;
-  --error-color: #dc2626;
+  --btn-secondary-bg: #1f2937;
+  --btn-secondary-text: #e5e7eb;
+  --btn-secondary-border: #374151;
+  --btn-secondary-hover: #2d3748;
 
-  --match-a-bg: rgba(139, 92, 246, 0.25);
-  --match-b-bg: rgba(16, 185, 129, 0.25);
-  --match-selected-bg: rgba(245, 158, 11, 0.45);
+  --success-color: #10b981;
+  --warn-color: #f59e0b;
+  --error-color: #ef4444;
+
+  --match-a-bg: rgba(139, 92, 246, 0.35);
+  --match-b-bg: rgba(16, 185, 129, 0.3);
 }
 
 * {
@@ -669,9 +673,9 @@ section {
   display: block;
 }
 
-html.light .sun-icon {
-  display: none;
-}
-html:not(.light) .moon-icon {
+/* Scoped to the button so the id-level  rule above
+   cannot out-specify them and leave both icons visible. */
+html:not(.dark) #theme-toggle-btn .sun-icon,
+html.dark #theme-toggle-btn .moon-icon {
   display: none;
 }
