@@ -285,6 +285,7 @@ main {
    is scaled to fit the panel, which leaves the caption legible at any zoom. */
 .page-sheet {
   width: 210mm;
+  height: 297mm;
   padding: 12mm 14mm;
   background-color: var(--paper-bg);
   color: var(--paper-text);
@@ -294,8 +295,9 @@ main {
   zoom: var(--page-zoom, 1);
 }
 
+/* Height is set per page: a page ends at the last line that fits whole, so
+   the leftover printable space below it stays blank. */
 .page-body {
-  height: var(--page-body-height);
   overflow: hidden;
 }
 
@@ -465,10 +467,18 @@ main {
 }
 
 /* ------------------------------------------------------------- pdf page breaks */
-/* Read by the pagination pass in main.ts, which drives both the sheets in the
-   preview and the pages in the PDF. */
+/* Elements a page break may not cut through, read by the pagination pass in
+   main.ts. Anything taller than a page is passed over, and the break falls
+   between the lines or rows inside it instead. */
 
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6,
 .markdown-body table,
+.markdown-body tr,
 .markdown-body pre,
 .markdown-body blockquote,
 .markdown-body img {

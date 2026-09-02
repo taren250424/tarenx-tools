@@ -4,6 +4,7 @@ import "./main.css";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 import html2pdf from "html2pdf.js";
+import { jsPDF } from "jspdf";
 
 marked.setOptions({ gfm: true, breaks: false });
 
@@ -46,54 +47,93 @@ let openedFileName = "";
 const MM_TO_PX = 96 / 25.4;
 const PAGE_MM = { width: 210, height: 297, marginY: 12, marginX: 14 };
 const PAGE_WIDTH_PX = PAGE_MM.width * MM_TO_PX;
+const CONTENT_MM = {
+  width: PAGE_MM.width - PAGE_MM.marginX * 2,
+  height: PAGE_MM.height - PAGE_MM.marginY * 2,
+};
+const PAGE_BODY_PX = CONTENT_MM.height * MM_TO_PX;
 
-// html2pdf slices its capture into strips of this height, so a sheet has to
-// be exactly this tall for the two to break in the same place.
-const PAGE_BODY_PX = (PAGE_MM.height - PAGE_MM.marginY * 2) * MM_TO_PX;
-
-const SPACER_CLASS = "page-spacer";
 const KEEP_TOGETHER = ["avoid", "avoid-page"];
 
-pages.style.setProperty("--page-body-height", `${PAGE_BODY_PX}px`);
+// Offsets into the rendered document where each page starts, the last entry
+// being its full height. Both the sheets and the PDF are cut from this.
+let pageBreaks: number[] = [0, 0];
 
-// Pushes anything that would be split across two pages onto the next one, the
-// way the pagebreak pass inside html2pdf does. Running it here instead leaves
-// preview and PDF paginated by the same code against the same layout.
-function insertPageSpacers(): void {
-  for (const stale of preview.querySelectorAll(`.${SPACER_CLASS}`))
-    stale.remove();
+type Span = [top: number, bottom: number];
 
+// Every stretch of the document a page break may not pass through: one per
+// line of text, plus each element the stylesheet marks unbreakable. An element
+// taller than a page is left out — it has to be broken somewhere, and the
+// lines or rows inside it are the better place.
+function unbreakableSpans(): Span[] {
   const flowTop = preview.getBoundingClientRect().top;
+  const spans: Span[] = [];
+
+  const lines = document.createRange();
+  const walker = document.createTreeWalker(preview, NodeFilter.SHOW_TEXT);
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+    if (!node.textContent?.trim()) continue;
+    lines.selectNodeContents(node);
+    for (const rect of lines.getClientRects())
+      if (rect.height) spans.push([rect.top - flowTop, rect.bottom - flowTop]);
+  }
+
   for (const el of preview.querySelectorAll<HTMLElement>("*")) {
     if (!KEEP_TOGETHER.includes(getComputedStyle(el).breakInside)) continue;
-
     const rect = el.getBoundingClientRect();
     if (rect.height > PAGE_BODY_PX) continue;
-
-    const top = rect.top - flowTop;
-    const startPage = Math.floor(top / PAGE_BODY_PX);
-    if (Math.floor((rect.bottom - flowTop) / PAGE_BODY_PX) === startPage)
-      continue;
-
-    const spacer = document.createElement("div");
-    spacer.className = SPACER_CLASS;
-    spacer.style.height = `${PAGE_BODY_PX - (top % PAGE_BODY_PX)}px`;
-    el.parentNode?.insertBefore(spacer, el);
+    spans.push([rect.top - flowTop, rect.bottom - flowTop]);
   }
+
+  // Merge the ones that overlap, so a single lookup answers "may I cut here".
+  // Only strict overlaps: consecutive lines touch exactly, and the seam
+  // between them is the very place a break belongs.
+  spans.sort((a, b) => a[0] - b[0]);
+  const merged: Span[] = [];
+  for (const span of spans) {
+    const last = merged[merged.length - 1];
+    if (last && span[0] < last[1]) last[1] = Math.max(last[1], span[1]);
+    else merged.push([...span]);
+  }
+  return merged;
+}
+
+function computePageBreaks(): number[] {
+  const spans = unbreakableSpans();
+  const total = preview.offsetHeight;
+  const breaks = [0];
+
+  for (let start = 0; start < total;) {
+    const limit = start + PAGE_BODY_PX;
+    if (limit >= total) break;
+
+    // Walk back to the first cut that splits nothing. Each step lands on the
+    // top of an offending span, so it always moves up and always terminates.
+    let end = limit;
+    for (const [top, bottom] of spans) if (top < end && end < bottom) end = top;
+
+    // A single span longer than a page: nothing to be done but cut it.
+    breaks.push(end > start ? end : limit);
+    start = breaks[breaks.length - 1];
+  }
+
+  breaks.push(total);
+  return breaks;
 }
 
 function paginate(): void {
-  insertPageSpacers();
+  pageBreaks = computePageBreaks();
 
-  const count = Math.max(1, Math.ceil(preview.offsetHeight / PAGE_BODY_PX));
+  const count = pageBreaks.length - 1;
   pages.replaceChildren(
     ...Array.from({ length: count }, (_, i) => {
       const flow = preview.cloneNode(true) as HTMLElement;
       flow.removeAttribute("id");
-      flow.style.transform = `translateY(${-i * PAGE_BODY_PX}px)`;
+      flow.style.transform = `translateY(${-pageBreaks[i]}px)`;
 
       const body = document.createElement("div");
       body.className = "page-body";
+      body.style.height = `${pageBreaks[i + 1] - pageBreaks[i]}px`;
       body.append(flow);
 
       const sheet = document.createElement("div");
@@ -195,6 +235,32 @@ document.addEventListener("drop", (e) => {
 
 // ---------------------------------------------------------------- pdf
 
+// Rows a cut may pass through: blank ones, and ones holding nothing but the
+// vertical rules of a table. Cell borders are far too light to register as
+// ink, so the allowance only has to cover the odd antialiased pixel.
+const CUT_REACH_PX = 60;
+const CUT_ROW_INK = 8;
+
+function clearCutRow(
+  source: CanvasRenderingContext2D,
+  canvas: HTMLCanvasElement,
+  target: number,
+  floor: number
+): number {
+  const from = Math.max(floor + 1, target - CUT_REACH_PX);
+  if (target <= from) return target;
+
+  const { data } = source.getImageData(0, from, canvas.width, target - from);
+  for (let row = target - from - 1; row >= 0; row--) {
+    let ink = 0;
+    const base = row * canvas.width * 4;
+    for (let x = 0; x < canvas.width; x++)
+      if (data[base + x * 4] < 200 && ++ink > CUT_ROW_INK) break;
+    if (ink <= CUT_ROW_INK) return from + row;
+  }
+  return target;
+}
+
 function pdfFilename(): string {
   if (openedFileName) return `${openedFileName}.pdf`;
   const heading = preview.querySelector("h1, h2, h3")?.textContent?.trim();
@@ -210,14 +276,15 @@ async function downloadPdf(): Promise<void> {
   const label = downloadBtn.innerHTML;
   downloadBtn.innerHTML = "Generating…";
 
-  // html2pdf clones the element into a container of the same width the
-  // preview is laid out at, so the capture matches the sheets on screen.
   try {
-    await html2pdf()
+    // Only the capture is html2pdf's: it clones the element into a container
+    // of the same width the preview is laid out at. Its own paginator would
+    // cut the image at a fixed stride, through whatever line happens to sit
+    // there, so the pages are cut from pageBreaks instead — the offsets the
+    // sheets on screen are already showing.
+    const canvas: HTMLCanvasElement = await html2pdf()
       .set({
         margin: [PAGE_MM.marginY, PAGE_MM.marginX],
-        filename: pdfFilename(),
-        image: { type: "jpeg", quality: 0.96 },
         html2canvas: {
           scale: 2,
           useCORS: true,
@@ -226,12 +293,74 @@ async function downloadPdf(): Promise<void> {
           backgroundColor: "#ffffff",
         },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-        // Off: insertPageSpacers() has already placed every break, and a
-        // second pass would push the same elements one page further.
-        pagebreak: { mode: [] },
       })
       .from(preview)
-      .save();
+      .toCanvas()
+      .get("canvas");
+
+    // The capture also holds the bottom margin of the last block, which
+    // collapses out of offsetHeight, and html2canvas rounds every box as it
+    // rasterises — a fraction of a pixel per table row, which adds up over a
+    // long one. Deriving the scale from the capture absorbs both.
+    const trailing = preview.lastElementChild
+      ? parseFloat(getComputedStyle(preview.lastElementChild).marginBottom)
+      : 0;
+    const scale = canvas.height / (preview.offsetHeight + trailing);
+    const maxRows = Math.floor(PAGE_BODY_PX * scale);
+    const source = canvas.getContext("2d", { willReadFrequently: true })!;
+
+    const pdf = new jsPDF({
+      unit: "mm",
+      format: "a4",
+      orientation: "portrait",
+    });
+    const page = document.createElement("canvas");
+    const ctx = page.getContext("2d")!;
+    page.width = canvas.width;
+
+    for (let i = 0, top = 0; top < canvas.height; i++) {
+      // The last page runs to the end of the capture: the trailing margin the
+      // scale accounts for lands past the final break, and it is blank anyway.
+      const wanted =
+        i + 2 < pageBreaks.length
+          ? Math.round(pageBreaks[i + 1] * scale)
+          : canvas.height;
+      let bottom = Math.min(wanted, top + maxRows, canvas.height);
+      // What the rounding above cannot absorb, the capture itself can answer:
+      // back the cut onto a row the raster says is clear.
+      if (bottom < canvas.height)
+        bottom = clearCutRow(source, canvas, bottom, top);
+      if (bottom <= top) bottom = Math.min(top + maxRows, canvas.height);
+
+      // Assigning the height also clears the canvas, hence the refill.
+      page.height = bottom - top;
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, page.width, page.height);
+      ctx.drawImage(
+        canvas,
+        0,
+        top,
+        page.width,
+        page.height,
+        0,
+        0,
+        page.width,
+        page.height
+      );
+
+      if (i) pdf.addPage();
+      pdf.addImage(
+        page.toDataURL("image/jpeg", 0.96),
+        "JPEG",
+        PAGE_MM.marginX,
+        PAGE_MM.marginY,
+        CONTENT_MM.width,
+        page.height / scale / MM_TO_PX
+      );
+      top = bottom;
+    }
+
+    pdf.save(pdfFilename());
   } finally {
     downloadBtn.disabled = false;
     downloadBtn.innerHTML = label;

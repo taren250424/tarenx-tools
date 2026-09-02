@@ -94,6 +94,9 @@ importers:
       html2pdf.js:
         specifier: ^0.12.1
         version: 0.12.1
+      jspdf:
+        specifier: ^3.0.4
+        version: 3.0.4
       marked:
         specifier: ^16.0.0
         version: 16.4.2

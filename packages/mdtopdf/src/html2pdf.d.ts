@@ -17,6 +17,8 @@ declare module "html2pdf.js" {
   interface Html2PdfInstance {
     set(options: Html2PdfOptions): Html2PdfInstance;
     from(source: HTMLElement | string): Html2PdfInstance;
+    toCanvas(): Html2PdfInstance;
+    get(key: "canvas"): Promise<HTMLCanvasElement>;
     save(): Promise<void>;
   }
 
