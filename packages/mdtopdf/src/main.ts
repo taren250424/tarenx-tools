@@ -18,6 +18,8 @@ const $ = <T extends HTMLElement>(id: string): T =>
 
 const editor = $<HTMLTextAreaElement>("editor");
 const preview = $("preview");
+const previewScroll = $("preview-scroll");
+const pages = $("pages");
 const fileInput = $<HTMLInputElement>("file-input");
 const openBtn = $<HTMLButtonElement>("open-btn");
 const downloadBtn = $<HTMLButtonElement>("download-btn");
@@ -39,11 +41,108 @@ themeToggleBtn.addEventListener("click", () => {
 // Name of the last opened file, used as the default PDF filename.
 let openedFileName = "";
 
+// ---------------------------------------------------------------- pagination
+
+const MM_TO_PX = 96 / 25.4;
+const PAGE_MM = { width: 210, height: 297, marginY: 12, marginX: 14 };
+const PAGE_WIDTH_PX = PAGE_MM.width * MM_TO_PX;
+
+// html2pdf slices its capture into strips of this height, so a sheet has to
+// be exactly this tall for the two to break in the same place.
+const PAGE_BODY_PX = (PAGE_MM.height - PAGE_MM.marginY * 2) * MM_TO_PX;
+
+const SPACER_CLASS = "page-spacer";
+const KEEP_TOGETHER = ["avoid", "avoid-page"];
+
+pages.style.setProperty("--page-body-height", `${PAGE_BODY_PX}px`);
+
+// Pushes anything that would be split across two pages onto the next one, the
+// way the pagebreak pass inside html2pdf does. Running it here instead leaves
+// preview and PDF paginated by the same code against the same layout.
+function insertPageSpacers(): void {
+  for (const stale of preview.querySelectorAll(`.${SPACER_CLASS}`))
+    stale.remove();
+
+  const flowTop = preview.getBoundingClientRect().top;
+  for (const el of preview.querySelectorAll<HTMLElement>("*")) {
+    if (!KEEP_TOGETHER.includes(getComputedStyle(el).breakInside)) continue;
+
+    const rect = el.getBoundingClientRect();
+    if (rect.height > PAGE_BODY_PX) continue;
+
+    const top = rect.top - flowTop;
+    const startPage = Math.floor(top / PAGE_BODY_PX);
+    if (Math.floor((rect.bottom - flowTop) / PAGE_BODY_PX) === startPage)
+      continue;
+
+    const spacer = document.createElement("div");
+    spacer.className = SPACER_CLASS;
+    spacer.style.height = `${PAGE_BODY_PX - (top % PAGE_BODY_PX)}px`;
+    el.parentNode?.insertBefore(spacer, el);
+  }
+}
+
+function paginate(): void {
+  insertPageSpacers();
+
+  const count = Math.max(1, Math.ceil(preview.offsetHeight / PAGE_BODY_PX));
+  pages.replaceChildren(
+    ...Array.from({ length: count }, (_, i) => {
+      const flow = preview.cloneNode(true) as HTMLElement;
+      flow.removeAttribute("id");
+      flow.style.transform = `translateY(${-i * PAGE_BODY_PX}px)`;
+
+      const body = document.createElement("div");
+      body.className = "page-body";
+      body.append(flow);
+
+      const sheet = document.createElement("div");
+      sheet.className = "page-sheet";
+      sheet.append(body);
+
+      const caption = document.createElement("p");
+      caption.className = "page-caption";
+      caption.textContent = `${i + 1} / ${count}`;
+
+      const page = document.createElement("div");
+      page.className = "page";
+      page.append(sheet, caption);
+      return page;
+    })
+  );
+}
+
+// The sheet is a fixed A4 width, so scale the stack down to fit rather than
+// making the panel scroll sideways.
+function fitPages(): void {
+  const style = getComputedStyle(previewScroll);
+  const available =
+    previewScroll.clientWidth -
+    parseFloat(style.paddingLeft) -
+    parseFloat(style.paddingRight);
+  if (available <= 0) return;
+  pages.style.setProperty(
+    "--page-zoom",
+    String(Math.min(1, available / PAGE_WIDTH_PX))
+  );
+}
+
+new ResizeObserver(fitPages).observe(previewScroll);
+
 // ---------------------------------------------------------------- preview
 
 function render(): void {
   const html = marked.parse(editor.value) as string;
   preview.innerHTML = DOMPurify.sanitize(html);
+  paginate();
+
+  // An image only takes up its real height once it has loaded, which moves
+  // every break after it.
+  for (const img of preview.querySelectorAll("img")) {
+    if (img.complete) continue;
+    img.addEventListener("load", paginate, { once: true });
+    img.addEventListener("error", paginate, { once: true });
+  }
 }
 
 let renderTimer = 0;
@@ -111,12 +210,12 @@ async function downloadPdf(): Promise<void> {
   const label = downloadBtn.innerHTML;
   downloadBtn.innerHTML = "Generating…";
 
-  // html2pdf clones the element into its own A4-width container, so the
-  // visible preview can be passed directly regardless of panel size.
+  // html2pdf clones the element into a container of the same width the
+  // preview is laid out at, so the capture matches the sheets on screen.
   try {
     await html2pdf()
       .set({
-        margin: [12, 14],
+        margin: [PAGE_MM.marginY, PAGE_MM.marginX],
         filename: pdfFilename(),
         image: { type: "jpeg", quality: 0.96 },
         html2canvas: {
@@ -127,7 +226,9 @@ async function downloadPdf(): Promise<void> {
           backgroundColor: "#ffffff",
         },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-        pagebreak: { mode: ["css", "legacy"] },
+        // Off: insertPageSpacers() has already placed every break, and a
+        // second pass would push the same elements one page further.
+        pagebreak: { mode: [] },
       })
       .from(preview)
       .save();
@@ -143,3 +244,5 @@ downloadBtn.addEventListener("click", () => void downloadPdf());
 
 editor.value = SAMPLE;
 render();
+// Web fonts arrive after the first render and take every line height with them.
+void document.fonts.ready.then(paginate);

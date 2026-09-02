@@ -181,13 +181,22 @@
         </div>
         <div class="panel preview-panel">
           <div class="panel-label">Preview</div>
-          <div class="preview-scroll">
-            <div id="preview" class="markdown-body"></div>
+          <div id="preview-scroll" class="preview-scroll">
+            <div id="pages" class="pages"></div>
           </div>
         </div>
         </section>
         <aside class="ad"></aside>
       </main>
+    </div>
+
+    <!--
+      The rendered document, laid out once at the PDF page width. html2pdf
+      captures this element and every sheet in the preview is a clipped clone
+      of it, so the preview breaks where the PDF breaks.
+    -->
+    <div class="pdf-source-host" aria-hidden="true">
+      <div id="preview" class="markdown-body"></div>
     </div>
 
     <div id="drop-overlay" class="drop-overlay hidden">
@@ -206,7 +215,8 @@
         <p>
           MD to PDF converts Markdown into a downloadable PDF right in your
           browser. Type or paste Markdown on the left, watch the formatted
-          preview update live on the right, and click
+          preview update live on the right — page by page, exactly as the PDF
+          will be paginated — and click
           <strong>Download PDF</strong> when it looks right.
           <strong>Your document is never uploaded</strong> — rendering and PDF
           generation both happen locally, so it's safe to convert private notes,
@@ -223,7 +233,8 @@
             loads instantly.
           </li>
           <li>
-            Check the live preview; it shows exactly what the PDF will contain.
+            Check the live preview — it is split into the same A4 pages the
+            PDF will have, so you can see where every page ends.
           </li>
           <li>Click <strong>Download PDF</strong> to save the result.</li>
         </ul>
@@ -234,9 +245,9 @@
         <p>
           Standard Markdown renders as you'd expect: headings, bold and italics,
           ordered and unordered lists, blockquotes, links, inline code and
-          fenced code blocks, tables, and horizontal rules. Headings are kept
-          together with the content that follows them when the PDF is paginated,
-          so page breaks land in sensible places.
+          fenced code blocks, tables, and horizontal rules. Where each page
+          ends is yours to decide: the preview shows the breaks as you type, so
+          you can move one by adding or trimming content above it.
         </p>
       </section>
 
@@ -253,10 +264,11 @@
           to know what Markdown is.
         </p>
         <p>
-          <strong>Can I control page breaks?</strong> The converter
-          automatically avoids breaking right after a heading. For long
-          documents, structuring content under clear headings produces the most
-          natural pagination.
+          <strong>Can I control page breaks?</strong> The preview is paginated
+          exactly like the PDF, so you can see where each break falls and add
+          or trim content until it lands where you want. Tables, code blocks,
+          blockquotes and images move to the next page rather than being split,
+          as long as they fit on a page of their own.
         </p>
       </section>
     </article>
@@ -287,7 +299,7 @@
             "name": "Can I control page breaks?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The converter automatically avoids breaking right after a heading. For long documents, structuring content under clear headings produces the most natural pagination."
+              "text": "The preview is paginated exactly like the PDF, so you can see where each break falls and add or trim content until it lands where you want. Tables, code blocks, blockquotes and images move to the next page rather than being split, as long as they fit on a page of their own."
             }
           }
         ]
