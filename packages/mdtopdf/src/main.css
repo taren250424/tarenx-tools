@@ -478,7 +478,6 @@ main {
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6,
-.markdown-body table,
 .markdown-body tr,
 .markdown-body pre,
 .markdown-body blockquote,
@@ -491,7 +490,8 @@ main {
 .markdown-body h3,
 .markdown-body h4,
 .markdown-body h5,
-.markdown-body h6 {
+.markdown-body h6,
+.markdown-body thead {
   page-break-after: avoid;
 }
 
