@@ -467,9 +467,10 @@ main {
 }
 
 /* ------------------------------------------------------------- pdf page breaks */
-/* Elements a page break may not cut through, read by the pagination pass in
-   main.ts. Anything taller than a page is passed over, and the break falls
-   between the lines or rows inside it instead. */
+/* Read by the pagination pass in main.ts: elements a page break may not cut
+   through, and elements it may not fall right after, which keeps each of
+   those with the first line below it. Anything taller than a page is passed
+   over, and the break falls between the lines or rows inside it instead. */
 
 .markdown-body h1,
 .markdown-body h2,
@@ -483,6 +484,15 @@ main {
 .markdown-body blockquote,
 .markdown-body img {
   page-break-inside: avoid;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  page-break-after: avoid;
 }
 
 /* ------------------------------------------------------------- page content */

@@ -53,7 +53,7 @@ const CONTENT_MM = {
 };
 const PAGE_BODY_PX = CONTENT_MM.height * MM_TO_PX;
 
-const KEEP_TOGETHER = ["avoid", "avoid-page"];
+const AVOID_BREAK = ["avoid", "avoid-page"];
 
 // Offsets into the rendered document where each page starts, the last entry
 // being its full height. Both the sheets and the PDF are cut from this.
@@ -61,33 +61,23 @@ let pageBreaks: number[] = [0, 0];
 
 type Span = [top: number, bottom: number];
 
-// Every stretch of the document a page break may not pass through: one per
-// line of text, plus each element the stylesheet marks unbreakable. An element
-// taller than a page is left out — it has to be broken somewhere, and the
-// lines or rows inside it are the better place.
-function unbreakableSpans(): Span[] {
-  const flowTop = preview.getBoundingClientRect().top;
-  const spans: Span[] = [];
-
-  const lines = document.createRange();
-  const walker = document.createTreeWalker(preview, NodeFilter.SHOW_TEXT);
+// The line boxes of the text inside a node, in document order.
+function lineRects(root: Node): DOMRect[] {
+  const rects: DOMRect[] = [];
+  const range = document.createRange();
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   for (let node = walker.nextNode(); node; node = walker.nextNode()) {
     if (!node.textContent?.trim()) continue;
-    lines.selectNodeContents(node);
-    for (const rect of lines.getClientRects())
-      if (rect.height) spans.push([rect.top - flowTop, rect.bottom - flowTop]);
+    range.selectNodeContents(node);
+    for (const rect of range.getClientRects()) if (rect.height) rects.push(rect);
   }
+  return rects;
+}
 
-  for (const el of preview.querySelectorAll<HTMLElement>("*")) {
-    if (!KEEP_TOGETHER.includes(getComputedStyle(el).breakInside)) continue;
-    const rect = el.getBoundingClientRect();
-    if (rect.height > PAGE_BODY_PX) continue;
-    spans.push([rect.top - flowTop, rect.bottom - flowTop]);
-  }
-
-  // Merge the ones that overlap, so a single lookup answers "may I cut here".
-  // Only strict overlaps: consecutive lines touch exactly, and the seam
-  // between them is the very place a break belongs.
+// Merge the ones that overlap, so a single lookup answers "may I cut here".
+// Only strict overlaps: consecutive lines touch exactly, and the seam
+// between them is the very place a break belongs.
+function mergeSpans(spans: Span[]): Span[] {
   spans.sort((a, b) => a[0] - b[0]);
   const merged: Span[] = [];
   for (const span of spans) {
@@ -98,8 +88,48 @@ function unbreakableSpans(): Span[] {
   return merged;
 }
 
+// Every stretch of the document a page break may not pass through. The
+// strict set has one span per line of text, plus each element the
+// stylesheet marks unbreakable; the full set adds the elements it keeps with
+// what follows them, each stretched down to the first line after it. A page
+// that cannot honour the full set falls back to the strict one. An element
+// taller than a page is left out of both — it has to be broken somewhere,
+// and the lines or rows inside it are the better place.
+function unbreakableSpans(): { strict: Span[]; full: Span[] } {
+  const flowTop = preview.getBoundingClientRect().top;
+  const strict: Span[] = [];
+  const joins: Span[] = [];
+
+  for (const rect of lineRects(preview))
+    strict.push([rect.top - flowTop, rect.bottom - flowTop]);
+
+  for (const el of preview.querySelectorAll<HTMLElement>("*")) {
+    const style = getComputedStyle(el);
+    const rect = el.getBoundingClientRect();
+    if (AVOID_BREAK.includes(style.breakInside) && rect.height <= PAGE_BODY_PX)
+      strict.push([rect.top - flowTop, rect.bottom - flowTop]);
+
+    const next = el.nextElementSibling;
+    if (!next || !AVOID_BREAK.includes(style.breakAfter)) continue;
+    // What follows may hold no text at all, an image say; then it is kept whole.
+    const first = lineRects(next)[0] ?? next.getBoundingClientRect();
+    joins.push([rect.top - flowTop, first.bottom - flowTop]);
+  }
+
+  return { strict: mergeSpans(strict), full: mergeSpans([...strict, ...joins]) };
+}
+
+// The lowest cut at or above limit that splits none of the spans. Each step
+// lands on the top of an offending span, so it always moves up and always
+// terminates.
+function cutBefore(spans: Span[], limit: number): number {
+  let end = limit;
+  for (const [top, bottom] of spans) if (top < end && end < bottom) end = top;
+  return end;
+}
+
 function computePageBreaks(): number[] {
-  const spans = unbreakableSpans();
+  const { strict, full } = unbreakableSpans();
   const total = preview.offsetHeight;
   const breaks = [0];
 
@@ -107,11 +137,10 @@ function computePageBreaks(): number[] {
     const limit = start + PAGE_BODY_PX;
     if (limit >= total) break;
 
-    // Walk back to the first cut that splits nothing. Each step lands on the
-    // top of an offending span, so it always moves up and always terminates.
-    let end = limit;
-    for (const [top, bottom] of spans) if (top < end && end < bottom) end = top;
-
+    let end = cutBefore(full, limit);
+    // Nothing on this page can stay with what follows it, so that is the
+    // rule to let go of before any other.
+    if (end <= start) end = cutBefore(strict, limit);
     // A single span longer than a page: nothing to be done but cut it.
     breaks.push(end > start ? end : limit);
     start = breaks[breaks.length - 1];
