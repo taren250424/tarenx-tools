@@ -293,6 +293,10 @@ async function downloadPdf(): Promise<void> {
           backgroundColor: "#ffffff",
         },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        // Off: it would pad every keep-together element that straddles a
+        // fixed page stride onto the next one, stretching the clone past the
+        // layout pageBreaks was measured on.
+        pagebreak: { mode: [] },
       })
       .from(preview)
       .toCanvas()
