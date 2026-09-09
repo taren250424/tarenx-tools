@@ -429,26 +429,29 @@ main {
   padding: 1em;
   border-radius: 8px;
   background-color: var(--paper-code-bg);
-  overflow-x: auto;
 }
 
+/* A sheet of paper does not scroll sideways, so anything wider than the
+   printable area would simply be cut off the page. Wrap it instead —
+   including mid-token, for the URLs and JSON payloads that carry no spaces
+   to break at. */
 .markdown-body pre code {
   padding: 0;
   background-color: transparent;
-  white-space: pre;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .markdown-body table {
   border-collapse: collapse;
-  display: block;
   max-width: 100%;
-  overflow-x: auto;
 }
 
 .markdown-body th,
 .markdown-body td {
   padding: 0.45em 0.9em;
   border: 1px solid var(--paper-border);
+  overflow-wrap: anywhere;
 }
 
 .markdown-body th {
