@@ -31,11 +31,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tools.tarenx.com/spellchecker/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://tools.tarenx.com/stereogramgenerator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

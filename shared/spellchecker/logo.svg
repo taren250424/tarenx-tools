@@ -1,7 +1,0 @@
-<svg width="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img">
-<title>Spell Checker logo</title>
-<desc>A flat pink square icon with rounded corners showing a white check mark above a white wavy underline, representing a proofread word.</desc>
-<rect x="0" y="0" width="512" height="512" rx="96" fill="#EC4899"/>
-<path d="M148 262 L222 336 L370 188" fill="none" stroke="#FFFFFF" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M128 400 Q160 368 192 400 T256 400 T320 400 T384 400" fill="none" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round"/>
-</svg>
