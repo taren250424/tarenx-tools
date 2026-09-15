@@ -30,6 +30,12 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0(vite@8.0.14(@types/node@26.1.2)(esbuild@0.28.0)(sass@1.100.0)(tsx@4.22.4))
 
+  packages/calculator:
+    devDependencies:
+      typescript:
+        specifier: ~5.7.2
+        version: 5.7.3
+
   packages/graphify:
     dependencies:
       chart.js:

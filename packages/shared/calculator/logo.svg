@@ -1,0 +1,15 @@
+<svg width="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Calculator logo</title>
+<desc>A flat orange square icon with rounded corners showing a white display bar above a three-by-three grid of white keys.</desc>
+<rect x="0" y="0" width="512" height="512" rx="96" fill="#F97316"/>
+<rect x="112" y="112" width="288" height="72" rx="16" fill="#FFFFFF"/>
+<circle cx="160" cy="220" r="24" fill="#FFFFFF"/>
+<circle cx="256" cy="220" r="24" fill="#FFFFFF"/>
+<circle cx="352" cy="220" r="24" fill="#FFFFFF"/>
+<circle cx="160" cy="292" r="24" fill="#FFFFFF"/>
+<circle cx="256" cy="292" r="24" fill="#FFFFFF"/>
+<circle cx="352" cy="292" r="24" fill="#FFFFFF"/>
+<circle cx="160" cy="364" r="24" fill="#FFFFFF"/>
+<circle cx="256" cy="364" r="24" fill="#FFFFFF"/>
+<circle cx="352" cy="364" r="24" fill="#FFFFFF"/>
+</svg>

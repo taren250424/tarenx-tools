@@ -1,0 +1,22 @@
+<svg width="100%" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Calculator Open Graph image</title>
+<desc>A wide banner with an orange background, the Calculator logo on the left, and the wordmark "Calculator" with a tagline on the right.</desc>
+<rect x="0" y="0" width="1200" height="630" fill="#F97316"/>
+<g transform="translate(120, 179)">
+  <rect x="0" y="0" width="272" height="272" rx="51" fill="#FFFFFF" fill-opacity="0.12"/>
+  <g transform="scale(0.53125)">
+    <rect x="112" y="112" width="288" height="72" rx="16" fill="#FFFFFF"/>
+    <circle cx="160" cy="220" r="24" fill="#FFFFFF"/>
+    <circle cx="256" cy="220" r="24" fill="#FFFFFF"/>
+    <circle cx="352" cy="220" r="24" fill="#FFFFFF"/>
+    <circle cx="160" cy="292" r="24" fill="#FFFFFF"/>
+    <circle cx="256" cy="292" r="24" fill="#FFFFFF"/>
+    <circle cx="352" cy="292" r="24" fill="#FFFFFF"/>
+    <circle cx="160" cy="364" r="24" fill="#FFFFFF"/>
+    <circle cx="256" cy="364" r="24" fill="#FFFFFF"/>
+    <circle cx="352" cy="364" r="24" fill="#FFFFFF"/>
+  </g>
+</g>
+<text x="470" y="310" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="76" font-weight="700">Calculator</text>
+<text x="470" y="380" fill="#FFFFFF" fill-opacity="0.85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34" font-weight="400">Add, subtract, multiply, divide — with your keyboard</text>
+</svg>
