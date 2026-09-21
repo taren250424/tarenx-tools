@@ -4,6 +4,9 @@ import path from "path";
 
 export default defineConfig({
   base: "/calculator/",
+  build: {
+    license: { fileName: "licenses.txt" },
+  },
   plugins: [
     viteStaticCopy({
       targets: [

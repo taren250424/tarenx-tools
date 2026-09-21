@@ -4,6 +4,9 @@ import path from "path";
 
 export default defineConfig({
   base: "/mdtopdf/",
+  build: {
+    license: { fileName: "licenses.txt" },
+  },
   plugins: [
     viteStaticCopy({
       targets: [

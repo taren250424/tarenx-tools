@@ -4,6 +4,9 @@ import path from "path";
 
 export default defineConfig({
   base: "/graphify/",
+  build: {
+    license: { fileName: "licenses.txt" },
+  },
   plugins: [
     viteStaticCopy({
       targets: [
