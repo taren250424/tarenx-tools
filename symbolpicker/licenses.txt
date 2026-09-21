@@ -1,0 +1,5 @@
+# Licenses
+
+The app bundles dependencies which contain the following licenses:
+
+## @taren250424/aero - 0.1.1 (MIT)
