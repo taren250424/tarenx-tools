@@ -5,3 +5,4 @@
 - Avoid comments by default. Add a concise comment only when the code's intent or non-obvious reasoning would otherwise be misunderstood. Do not comment on obvious behavior or restate what the code already expresses.
 - When implementing a new package, reference packages/hub, packages/shared, and two or three other existing packages to keep the implementation consistent with them.
 - Default to a minimal, light design, and add a dark theme option alongside it where feasible.
+- Anything that ships from outside this repo needs its license notice. Every tool's vite config keeps `build.license`, which writes the bundled npm packages' licenses to `licenses.txt`, and `/credits/` (`packages/hub/public/credits/index.html`) links each tool that bundles a third-party package. Vendored data, like Symbol Picker's Unicode files, gets its source and license terms in both `THIRD-PARTY-NOTICES.md` and `/credits/`.
